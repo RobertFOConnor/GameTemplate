@@ -3,32 +3,29 @@ package com.yellowbytestudios.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.camera.OrthoCamera;
-import com.yellowbytestudios.game.Player;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.UIElement;
 
 import java.util.ArrayList;
 
-public class GameScreen implements Screen {
+public class TitleScreen implements Screen {
 
     private OrthoCamera camera;
-    private Player player;
     private ArrayList<UIElement> UIElements;
-    private boolean paused = false;
 
     @Override
     public void create() {
         camera = new OrthoCamera();
         camera.resize();
-        player = new Player("Phil");
 
         UIElements = new ArrayList<UIElement>();
-        UIElements.add(new TextButton("Pause", new Vector2(100, 100), new OnTouchListener() {
+        UIElements.add(new TextButton("Start Game", new Vector2(MainGame.WIDTH/2, MainGame.HEIGHT/2), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                paused = !paused;
+                ScreenManager.setScreen(new GameScreen());
             }
         }));
     }
@@ -40,14 +37,6 @@ public class GameScreen implements Screen {
             for (UIElement uiElement : UIElements) {
                 uiElement.checkTouch(touch);
             }
-        }
-
-        if (!paused) {
-            if (Gdx.input.isTouched(0)) {
-                Vector2 touch = getTouchPos();
-                player.onTouch(touch);
-            }
-            player.update();
         }
     }
 
@@ -63,8 +52,6 @@ public class GameScreen implements Screen {
 
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
-
-        player.render(sb);
 
         //render UI elements
         for (UIElement uiElement : UIElements) {
@@ -107,4 +94,5 @@ public class GameScreen implements Screen {
     public void goBack() {
         Gdx.app.exit();
     }
+
 }

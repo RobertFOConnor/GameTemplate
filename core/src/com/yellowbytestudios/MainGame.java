@@ -8,6 +8,7 @@ import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Fonts;
 import com.yellowbytestudios.screens.GameScreen;
 import com.yellowbytestudios.screens.ScreenManager;
+import com.yellowbytestudios.screens.TitleScreen;
 
 public class MainGame extends ApplicationAdapter {
 
@@ -31,7 +32,7 @@ public class MainGame extends ApplicationAdapter {
 
         if (Assets.update() && !loaded) {
             loaded = true;
-            ScreenManager.setScreen(new GameScreen());
+            ScreenManager.setScreen(new TitleScreen());
         }
 
         if(loaded) {
@@ -50,5 +51,7 @@ public class MainGame extends ApplicationAdapter {
     @Override
     public void dispose() {
         sb.dispose();
+        Assets.dispose();
+        Fonts.dispose();
     }
 }
