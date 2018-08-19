@@ -25,6 +25,7 @@ public class GameScreen implements Screen {
                     Gdx.input.getX(0),
                     Gdx.input.getY(0)
             );
+
             player.onTouch(touch);
         }
     }

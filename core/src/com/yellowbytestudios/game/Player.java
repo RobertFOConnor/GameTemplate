@@ -4,15 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
+import com.yellowbytestudios.media.Assets;
 
 
 public class Player extends GameObject {
 
+    private float speed = 5f;
+
     public Player(String name) {
         this.setName(name);
-        this.setImage(new Texture("ship.png"));
+        this.setImage(Assets.manager.get(Assets.SHIP, Texture.class));
 
-        this.setPos(new Vector2(MainGame.WIDTH / 2, 0));
+        this.setPos(new Vector2(MainGame.WIDTH / 2, MainGame.HEIGHT / 9));
     }
 
     @Override
@@ -21,12 +24,17 @@ public class Player extends GameObject {
     }
 
     public void update() {
-        Vector2 currPos = this.getPos();
-        currPos.set(currPos.x, currPos.y + 1f);
+
     }
 
     public void onTouch(Vector2 touch) {
-        if (checkTouch(touch)) {
+
+        Vector2 currPos = this.getPos();
+
+        if (touch.x < MainGame.WIDTH / 2) {//left side of screen
+            currPos.set(currPos.x - speed, currPos.y);
+        } else {
+            currPos.set(currPos.x + speed, currPos.y);
         }
     }
 }

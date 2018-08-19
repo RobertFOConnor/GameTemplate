@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.screens.GameScreen;
 import com.yellowbytestudios.screens.ScreenManager;
 
@@ -13,12 +14,12 @@ public class MainGame extends ApplicationAdapter {
     public static int HEIGHT = 1920;
     private static final float STEP = 1 / 60f;
     private SpriteBatch sb;
+    private boolean loaded = false;
 
     @Override
     public void create() {
+        Assets.load();
         sb = new SpriteBatch();
-
-        ScreenManager.setScreen(new GameScreen());
     }
 
     @Override
@@ -26,8 +27,15 @@ public class MainGame extends ApplicationAdapter {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl20.glClearColor(0, 0, 0, 0);
 
-        ScreenManager.getCurrentScreen().update(STEP);
-        ScreenManager.getCurrentScreen().render(sb);
+        if (Assets.update() && !loaded) {
+            loaded = true;
+            ScreenManager.setScreen(new GameScreen());
+        }
+
+        if(loaded) {
+            ScreenManager.getCurrentScreen().update(STEP);
+            ScreenManager.getCurrentScreen().render(sb);
+        }
     }
 
     @Override
