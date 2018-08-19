@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.game.Player;
+import com.yellowbytestudios.media.Fonts;
 
 public class GameScreen implements Screen {
 
@@ -37,6 +38,7 @@ public class GameScreen implements Screen {
         sb.begin();
         player.update();
         player.render(sb);
+        Fonts.GUIFont.draw(sb, "Score: ", 50, 100);
         sb.end();
     }
 

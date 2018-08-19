@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.yellowbytestudios.media.Assets;
+import com.yellowbytestudios.media.Fonts;
 import com.yellowbytestudios.screens.GameScreen;
 import com.yellowbytestudios.screens.ScreenManager;
 
@@ -18,6 +19,7 @@ public class MainGame extends ApplicationAdapter {
 
     @Override
     public void create() {
+        Fonts.load();
         Assets.load();
         sb = new SpriteBatch();
     }
