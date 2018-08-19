@@ -3,6 +3,7 @@ package com.yellowbytestudios.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.game.Player;
 import com.yellowbytestudios.ui.OnTouchListener;
@@ -25,10 +26,17 @@ public class GameScreen implements Screen {
         player = new Player("Phil");
 
         UIElements = new ArrayList<UIElement>();
-        UIElements.add(new TextButton("Pause", new Vector2(100, 100), new OnTouchListener() {
+        UIElements.add(new TextButton("Pause", new Vector2(50, MainGame.HEIGHT-20), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 paused = !paused;
+            }
+        }));
+
+        UIElements.add(new TextButton("Close", new Vector2(MainGame.WIDTH-250, MainGame.HEIGHT-20), new OnTouchListener() {
+            @Override
+            public void onTouch(Vector2 touch) {
+                goBack();
             }
         }));
     }
@@ -105,6 +113,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void goBack() {
-        Gdx.app.exit();
+        ScreenManager.setScreen(new TitleScreen());
     }
 }

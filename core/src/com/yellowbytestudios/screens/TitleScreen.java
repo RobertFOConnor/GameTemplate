@@ -20,14 +20,27 @@ public class TitleScreen implements Screen {
     public void create() {
         camera = new OrthoCamera();
         camera.resize();
-
         UIElements = new ArrayList<UIElement>();
-        UIElements.add(new TextButton("Start Game", new Vector2(MainGame.WIDTH/2, MainGame.HEIGHT/2), new OnTouchListener() {
+
+        createMenuButton("Start Game", new Vector2(MainGame.WIDTH/2, MainGame.HEIGHT/3), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new GameScreen());
             }
-        }));
+        });
+
+        createMenuButton("Exit", new Vector2(MainGame.WIDTH/2, MainGame.HEIGHT/3-150), new OnTouchListener() {
+            @Override
+            public void onTouch(Vector2 touch) {
+                goBack();
+            }
+        });
+    }
+
+    private void createMenuButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
+        TextButton button = new TextButton(name, pos, onTouchListener);
+        button.center();
+        UIElements.add(button);
     }
 
     @Override

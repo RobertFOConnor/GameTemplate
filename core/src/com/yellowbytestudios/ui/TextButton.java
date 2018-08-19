@@ -62,7 +62,7 @@ public class TextButton extends UIElement {
         this.onTouchListener = onTouchListener;
     }
 
-    private void center() {
+    public void center() {
         Vector2 currPos = getPos();
         currPos.set(currPos.x - width/2, currPos.y);
     }
