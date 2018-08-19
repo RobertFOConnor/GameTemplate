@@ -13,7 +13,7 @@ public class Player extends GameObject {
 
     public Player(String name) {
         this.setName(name);
-        this.setImage(Assets.manager.get(Assets.SHIP, Texture.class));
+        this.setImage(Assets.manager.get("ship.png", Texture.class));
 
         this.setPos(new Vector2(MainGame.WIDTH / 2, MainGame.HEIGHT / 9));
     }

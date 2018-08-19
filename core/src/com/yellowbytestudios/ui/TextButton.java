@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.media.Fonts;
+import com.yellowbytestudios.media.Sounds;
 
 public class TextButton extends UIElement {
 
@@ -38,6 +39,7 @@ public class TextButton extends UIElement {
 
     public void checkTouch(Vector2 touch) {
         if (getBounds().contains(touch)) {
+            Sounds.play("sound/click.wav");
             onTouchListener.onTouch(touch);
         }
     }

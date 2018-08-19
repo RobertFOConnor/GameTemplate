@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.camera.OrthoCamera;
+import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.UIElement;
@@ -35,6 +36,8 @@ public class TitleScreen implements Screen {
                 goBack();
             }
         });
+
+        Sounds.setMusic("music/title_music.mp3");
     }
 
     private void createMenuButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
