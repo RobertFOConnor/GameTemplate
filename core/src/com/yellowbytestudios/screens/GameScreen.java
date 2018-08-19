@@ -1,8 +1,8 @@
 package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.game.Player;
 
@@ -20,16 +20,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void update(float step) {
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            advanceScreen();
-
-        } else if (Gdx.input.justTouched()) {
-            advanceScreen();
+        if (Gdx.input.isTouched(0)) {
+            Vector2 touch = camera.unprojectCoordinates(
+                    Gdx.input.getX(0),
+                    Gdx.input.getY(0)
+            );
+            player.onTouch(touch);
         }
-    }
-
-    private void advanceScreen() {
-
     }
 
     @Override
@@ -37,6 +34,7 @@ public class GameScreen implements Screen {
 
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
+        player.update();
         player.render(sb);
         sb.end();
     }

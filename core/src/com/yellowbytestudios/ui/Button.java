@@ -1,13 +1,12 @@
-package com.yellowbytestudios.game;
+package com.yellowbytestudios.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class GameObject {
+public class Button {
 
-    private int id;
     private String name;
     private Vector2 pos;
     private Texture image;
@@ -22,14 +21,6 @@ public abstract class GameObject {
 
     public boolean checkTouch(Vector2 touch) {
         return getBounds().contains(touch);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
