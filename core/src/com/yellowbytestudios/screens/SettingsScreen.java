@@ -8,6 +8,7 @@ import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
+import com.yellowbytestudios.ui.TextView;
 import com.yellowbytestudios.ui.UIElement;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 import static com.yellowbytestudios.ui.Metrics.H_CENTER;
 import static com.yellowbytestudios.ui.Metrics.V_CENTER;
 
-public class TitleScreen implements Screen {
+
+public class SettingsScreen implements Screen {
 
     private OrthoCamera camera;
     private ArrayList<UIElement> UIElements;
@@ -26,28 +28,41 @@ public class TitleScreen implements Screen {
         camera.resize();
         UIElements = new ArrayList<UIElement>();
 
-        createMenuButton("Start Game", new Vector2(H_CENTER, MainGame.HEIGHT / 3), new OnTouchListener() {
+        TextView tv = new TextView("Here you can alter the settings for the game.", new Vector2(100, MainGame.HEIGHT - 100));
+        UIElements.add(tv);
+
+        createMenuButton("Music: OFF", new Vector2(H_CENTER, V_CENTER + 100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                ScreenManager.setScreen(new GameScreen());
+                if (Sounds.toggleMusic()) {
+                    updateButtonText(1, "Music: ON");
+                } else {
+                    updateButtonText(1, "Music: OFF");
+                }
             }
         });
 
-        createMenuButton("Options", new Vector2(H_CENTER, MainGame.HEIGHT / 3 - 150), new OnTouchListener() {
+        createMenuButton("Sound: ON", new Vector2(H_CENTER, V_CENTER - 100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                ScreenManager.setScreen(new SettingsScreen());
+                if (Sounds.toggleSound()) {
+                    updateButtonText(2, "Sound: ON");
+                } else {
+                    updateButtonText(2, "Sound: OFF");
+                }
             }
         });
 
-        createMenuButton("Exit", new Vector2(H_CENTER, MainGame.HEIGHT / 3 - 300), new OnTouchListener() {
+        createMenuButton("Go Back", new Vector2(H_CENTER, 200), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();
             }
         });
+    }
 
-        Sounds.setMusic("music/title_music.mp3");
+    private void updateButtonText(int index, String text) {
+        ((TextButton) UIElements.get(index)).setName(text);
     }
 
     private void createMenuButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
@@ -118,7 +133,6 @@ public class TitleScreen implements Screen {
 
     @Override
     public void goBack() {
-        Gdx.app.exit();
+        ScreenManager.setScreen(new TitleScreen());
     }
-
 }

@@ -19,6 +19,7 @@ public class Assets {
 
         //Images
         assetMap.put("ship.png", Texture.class);
+        assetMap.put("enemy.png", Texture.class);
 
         //Sound
         assetMap.put("sound/click.wav", Sound.class);

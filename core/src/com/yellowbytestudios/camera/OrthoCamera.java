@@ -4,29 +4,29 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.yellowbytestudios.MainGame;
 
 public class OrthoCamera extends OrthographicCamera {
     Vector3 tmp = new Vector3();
     Vector2 origin = new Vector2();
-    StretchViewport virtualViewport;
+    FitViewport virtualViewport;
     Vector2 pos = new Vector2();
 
     public OrthoCamera() {
-        this(new StretchViewport(MainGame.WIDTH, MainGame.HEIGHT));
+        this(new FitViewport(MainGame.WIDTH, MainGame.HEIGHT));
     }
 
-    public OrthoCamera(StretchViewport virtualViewport) {
+    public OrthoCamera(FitViewport virtualViewport) {
         this(virtualViewport, 0f, 0f);
     }
 
-    public OrthoCamera(StretchViewport virtualViewport, float cx, float cy) {
+    public OrthoCamera(FitViewport virtualViewport, float cx, float cy) {
         this.virtualViewport = virtualViewport;
         this.origin.set(cx, cy);
     }
 
-    public void setVirtualViewport(StretchViewport virtualViewport) {
+    public void setVirtualViewport(FitViewport virtualViewport) {
         this.virtualViewport = virtualViewport;
     }
 
@@ -43,7 +43,7 @@ public class OrthoCamera extends OrthographicCamera {
     @Override
     public void update() {
         float left = zoom * -viewportWidth / 2
-                + virtualViewport.getWorldWidth()* origin.x;
+                + virtualViewport.getWorldWidth() * origin.x;
         float right = zoom * viewportWidth / 2
                 + virtualViewport.getWorldWidth() * origin.x;
         float top = zoom * viewportHeight / 2
@@ -76,7 +76,7 @@ public class OrthoCamera extends OrthographicCamera {
     }
 
     public void resize() {
-        StretchViewport virtualViewport = new StretchViewport(MainGame.WIDTH, MainGame.HEIGHT);
+        FitViewport virtualViewport = new FitViewport(MainGame.WIDTH, MainGame.HEIGHT);
         setVirtualViewport(virtualViewport);
         updateViewport();
     }

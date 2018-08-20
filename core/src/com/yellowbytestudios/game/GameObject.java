@@ -11,13 +11,15 @@ public abstract class GameObject {
     private String name;
     private Vector2 pos;
     private Texture image;
+    private float width;
+    private float height;
 
     public void render(SpriteBatch sb) {
-        sb.draw(image, pos.x, pos.y);
+        sb.draw(image, pos.x, pos.y, width, height);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(pos.x, pos.y, image.getWidth(), image.getHeight());
+        return new Rectangle(pos.x, pos.y, width, height);
     }
 
     public boolean checkTouch(Vector2 touch) {
@@ -54,5 +56,21 @@ public abstract class GameObject {
 
     public void setImage(Texture image) {
         this.image = image;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 }

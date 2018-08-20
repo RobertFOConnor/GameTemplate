@@ -5,9 +5,9 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
 
-    public static boolean soundFXEnabled = true;
-    public static boolean musicEnabled = true;
-    public static Music GAME_MUSIC;
+    private static boolean soundFXEnabled = true;
+    private static boolean musicEnabled = false;
+    private static Music GAME_MUSIC;
 
     public static void play(String s) {
         if (soundFXEnabled) {
@@ -45,7 +45,7 @@ public class Sounds {
         }
     }
 
-    public static void toggleMusic() {
+    public static boolean toggleMusic() {
         musicEnabled = !musicEnabled;
         if (musicEnabled) {
             GAME_MUSIC.setLooping(true);
@@ -55,5 +55,19 @@ public class Sounds {
                 GAME_MUSIC.stop();
             }
         }
+        return musicEnabled;
+    }
+
+    public static boolean toggleSound() {
+        soundFXEnabled = !soundFXEnabled;
+        return soundFXEnabled;
+    }
+
+    public static boolean isSoundFXEnabled() {
+        return soundFXEnabled;
+    }
+
+    public static boolean isMusicEnabled() {
+        return musicEnabled;
     }
 }

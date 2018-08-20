@@ -9,32 +9,34 @@ import com.yellowbytestudios.media.Assets;
 
 public class Player extends GameObject {
 
-    private float speed = 5f;
+    private float speed = 700f;
 
     public Player(String name) {
         this.setName(name);
         this.setImage(Assets.manager.get("ship.png", Texture.class));
 
         this.setPos(new Vector2(MainGame.WIDTH / 2, MainGame.HEIGHT / 9));
+        this.setWidth(100);
+        this.setHeight(100);
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-        sb.draw(this.getImage(), this.getPos().x, this.getPos().y, 100, 100);
-    }
-
-    public void update() {
-
-    }
-
-    public void onTouch(Vector2 touch) {
+    public void onTouch(Vector2 touch, float delta) {
 
         Vector2 currPos = this.getPos();
+        float newXPos;
 
         if (touch.x < MainGame.WIDTH / 2) {//left side of screen
-            currPos.set(currPos.x - speed, currPos.y);
+            newXPos = currPos.x - speed * delta;
         } else {
-            currPos.set(currPos.x + speed, currPos.y);
+            newXPos = currPos.x + speed * delta;
         }
+
+        if (withinScreenBounds(newXPos)) {
+            currPos.set(newXPos, currPos.y);
+        }
+    }
+
+    private boolean withinScreenBounds(float xPos) {
+        return (xPos > 0 && xPos < MainGame.WIDTH - 100);
     }
 }

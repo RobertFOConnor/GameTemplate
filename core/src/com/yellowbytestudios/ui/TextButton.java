@@ -39,8 +39,8 @@ public class TextButton extends UIElement {
 
     public void checkTouch(Vector2 touch) {
         if (getBounds().contains(touch)) {
-            Sounds.play("sound/click.wav");
             onTouchListener.onTouch(touch);
+            Sounds.play("sound/click.wav");
         }
     }
 
@@ -66,6 +66,6 @@ public class TextButton extends UIElement {
 
     public void center() {
         Vector2 currPos = getPos();
-        currPos.set(currPos.x - width/2, currPos.y);
+        currPos.set(currPos.x - width / 2, currPos.y);
     }
 }

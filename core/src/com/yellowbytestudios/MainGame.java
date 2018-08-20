@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Fonts;
-import com.yellowbytestudios.screens.GameScreen;
 import com.yellowbytestudios.screens.ScreenManager;
 import com.yellowbytestudios.screens.TitleScreen;
 
@@ -28,7 +27,7 @@ public class MainGame extends ApplicationAdapter {
     @Override
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glClearColor(0.15f, 0.1f, 0.5f, 0);
+        Gdx.gl20.glClearColor(0.35f, 0.7f, 0.8f, 0);
 
         if (Assets.update() && !loaded) {
             loaded = true;
@@ -36,7 +35,7 @@ public class MainGame extends ApplicationAdapter {
         }
 
         if(loaded) {
-            ScreenManager.getCurrentScreen().update(STEP);
+            ScreenManager.getCurrentScreen().update(Gdx.graphics.getDeltaTime());
             ScreenManager.getCurrentScreen().render(sb);
         }
     }
