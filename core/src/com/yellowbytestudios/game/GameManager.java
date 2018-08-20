@@ -41,10 +41,12 @@ public class GameManager {
     }
 
     public void render(SpriteBatch sb) {
-        player.render(sb);
-
+        sb.setProjectionMatrix(camera.combined);
+        sb.begin();
         for(Enemy e : enemies) {
             e.render(sb);
         }
+        player.render(sb);
+        sb.end();
     }
 }

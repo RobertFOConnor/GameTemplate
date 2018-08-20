@@ -13,7 +13,6 @@ public class MainGame extends ApplicationAdapter {
 
     public static int WIDTH = 1080;
     public static int HEIGHT = 1920;
-    private static final float STEP = 1 / 60f;
     private SpriteBatch sb;
     private boolean loaded = false;
 

@@ -4,27 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
-import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.UIElement;
 
-import java.util.ArrayList;
-
 import static com.yellowbytestudios.ui.Metrics.H_CENTER;
-import static com.yellowbytestudios.ui.Metrics.V_CENTER;
 
-public class TitleScreen implements Screen {
-
-    private OrthoCamera camera;
-    private ArrayList<UIElement> UIElements;
+public class TitleScreen extends Screen {
 
     @Override
     public void create() {
-        camera = new OrthoCamera();
-        camera.resize();
-        UIElements = new ArrayList<UIElement>();
+        super.create();
 
         createMenuButton("Start Game", new Vector2(H_CENTER, MainGame.HEIGHT / 3), new OnTouchListener() {
             @Override
@@ -57,33 +48,13 @@ public class TitleScreen implements Screen {
     }
 
     @Override
-    public void update(float step) {
-        if (Gdx.input.justTouched()) {
-            Vector2 touch = getTouchPos();
-            for (UIElement uiElement : UIElements) {
-                uiElement.checkTouch(touch);
-            }
-        }
-    }
-
-    private Vector2 getTouchPos() {
-        return camera.unprojectCoordinates(
-                Gdx.input.getX(0),
-                Gdx.input.getY(0)
-        );
+    public void update(float delta) {
+       super.update(delta);
     }
 
     @Override
     public void render(SpriteBatch sb) {
-
-        sb.setProjectionMatrix(camera.combined);
-        sb.begin();
-
-        //render UI elements
-        for (UIElement uiElement : UIElements) {
-            uiElement.render(sb);
-        }
-        sb.end();
+        super.render(sb);
     }
 
     @Override
