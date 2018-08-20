@@ -29,7 +29,7 @@ public class GameScreen extends Screen {
             }
         }));
 
-        UIElements.add(new TextButton("Close", getTopRight().add(-200, -50), new OnTouchListener() {
+        UIElements.add(new TextButton("Close", getTopRight().add(-280, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();
