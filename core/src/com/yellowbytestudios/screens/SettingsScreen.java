@@ -7,10 +7,9 @@ import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.TextView;
-import com.yellowbytestudios.ui.UIElement;
-
-import static com.yellowbytestudios.ui.Metrics.H_CENTER;
-import static com.yellowbytestudios.ui.Metrics.V_CENTER;
+import static com.yellowbytestudios.ui.Metrics.getBottomCenter;
+import static com.yellowbytestudios.ui.Metrics.getCenter;
+import static com.yellowbytestudios.ui.Metrics.getTopCenter;
 
 
 public class SettingsScreen extends Screen {
@@ -19,10 +18,11 @@ public class SettingsScreen extends Screen {
     public void create() {
         super.create();
 
-        TextView tv = new TextView("Here you can alter the settings for the game.", new Vector2(100, MainGame.HEIGHT - 100));
+        TextView tv = new TextView("Here you can alter the settings for the game.", getTopCenter().add(0, -100));
+        tv.center();
         UIElements.add(tv);
 
-        createMenuButton("Music: OFF", new Vector2(H_CENTER, V_CENTER + 100), new OnTouchListener() {
+        createMenuButton("Music: OFF", getCenter().add(0, 100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 if (Sounds.toggleMusic()) {
@@ -33,7 +33,7 @@ public class SettingsScreen extends Screen {
             }
         });
 
-        createMenuButton("Sound: ON", new Vector2(H_CENTER, V_CENTER - 100), new OnTouchListener() {
+        createMenuButton("Sound: ON", getCenter().add(0, -100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 if (Sounds.toggleSound()) {
@@ -44,7 +44,7 @@ public class SettingsScreen extends Screen {
             }
         });
 
-        createMenuButton("Go Back", new Vector2(H_CENTER, 200), new OnTouchListener() {
+        createMenuButton("Go Back", getBottomCenter().add(0, 200), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();

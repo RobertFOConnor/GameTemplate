@@ -3,13 +3,11 @@ package com.yellowbytestudios.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
-import com.yellowbytestudios.ui.UIElement;
 
-import static com.yellowbytestudios.ui.Metrics.H_CENTER;
+import static com.yellowbytestudios.ui.Metrics.getCenter;
 
 public class TitleScreen extends Screen {
 
@@ -17,21 +15,21 @@ public class TitleScreen extends Screen {
     public void create() {
         super.create();
 
-        createMenuButton("Start Game", new Vector2(H_CENTER, MainGame.HEIGHT / 3), new OnTouchListener() {
+        createMenuButton("Start Game", getCenter().add(0, -200), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new GameScreen());
             }
         });
 
-        createMenuButton("Options", new Vector2(H_CENTER, MainGame.HEIGHT / 3 - 150), new OnTouchListener() {
+        createMenuButton("Options", getCenter().add(0, -400), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new SettingsScreen());
             }
         });
 
-        createMenuButton("Exit", new Vector2(H_CENTER, MainGame.HEIGHT / 3 - 300), new OnTouchListener() {
+        createMenuButton("Exit", getCenter().add(0, -600), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();

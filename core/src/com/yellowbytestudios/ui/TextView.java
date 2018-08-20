@@ -10,6 +10,7 @@ public class TextView extends UIElement {
 
     private String name;
     private Vector2 pos;
+    private float width = MainGame.WIDTH - 200;
 
     public TextView(String name, Vector2 pos) {
         setName(name);
@@ -17,7 +18,7 @@ public class TextView extends UIElement {
     }
 
     public void render(SpriteBatch sb) {
-        Fonts.detailsFont.draw(sb, name, pos.x, pos.y, MainGame.WIDTH - 200, Align.center, true);
+        Fonts.detailsFont.draw(sb, name, pos.x, pos.y, width, Align.center, true);
     }
 
     @Override
@@ -33,8 +34,16 @@ public class TextView extends UIElement {
         this.name = name;
     }
 
+    public Vector2 getPos() {
+        return pos;
+    }
+
     private void setPos(Vector2 pos) {
         this.pos = pos;
     }
 
+    public void center() {
+        Vector2 currPos = getPos();
+        currPos.set(currPos.x - width / 2, currPos.y);
+    }
 }

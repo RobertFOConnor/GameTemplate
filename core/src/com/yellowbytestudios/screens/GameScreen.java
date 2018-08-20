@@ -2,10 +2,12 @@ package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.game.GameManager;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
+
+import static com.yellowbytestudios.ui.Metrics.getTopLeft;
+import static com.yellowbytestudios.ui.Metrics.getTopRight;
 
 public class GameScreen extends Screen {
 
@@ -20,14 +22,14 @@ public class GameScreen extends Screen {
     }
 
     private void setupGUI () {
-        UIElements.add(new TextButton("Pause", new Vector2(50, MainGame.HEIGHT-20), new OnTouchListener() {
+        UIElements.add(new TextButton("Pause", getTopLeft().add(50, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 paused = !paused;
             }
         }));
 
-        UIElements.add(new TextButton("Close", new Vector2(MainGame.WIDTH-250, MainGame.HEIGHT-20), new OnTouchListener() {
+        UIElements.add(new TextButton("Close", getTopRight().add(-200, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();
