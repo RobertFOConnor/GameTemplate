@@ -22,7 +22,6 @@ public class ToggleButton extends TextButton {
             onTouchListener.onTouch(touch);
             isActive = !isActive;
             setName(isActive ? getActiveName() : getInactiveName());
-            System.out.println(getName());
             Sounds.play("sound/click.wav");
         }
     }

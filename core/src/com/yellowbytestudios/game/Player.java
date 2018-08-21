@@ -39,4 +39,8 @@ public class Player extends GameObject {
     private boolean withinScreenBounds(float xPos) {
         return (xPos > 0 && xPos < MainGame.WIDTH - 100);
     }
+
+    public Vector2 getBulletStartPos() {
+        return getPos().cpy().add(getWidth()/2 - 10, getHeight());
+    }
 }
