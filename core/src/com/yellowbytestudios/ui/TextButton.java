@@ -9,7 +9,7 @@ import com.yellowbytestudios.media.Sounds;
 
 public class TextButton extends UIElement {
 
-    private OnTouchListener onTouchListener;
+    OnTouchListener onTouchListener;
     private String name;
     private Vector2 pos;
     private float width;
@@ -20,6 +20,7 @@ public class TextButton extends UIElement {
         setPos(pos);
         setupBounds();
         setOnTouchListener(onTouchListener);
+        center();
     }
 
     private void setupBounds() {
@@ -30,10 +31,10 @@ public class TextButton extends UIElement {
     }
 
     public void render(SpriteBatch sb) {
-        Fonts.GUIFont.draw(sb, name, pos.x, pos.y);
+        Fonts.GUIFont.draw(sb, getName(), pos.x, pos.y);
     }
 
-    private Rectangle getBounds() {
+    Rectangle getBounds() {
         return new Rectangle(pos.x, pos.y - height, width, height);
     }
 
@@ -64,7 +65,7 @@ public class TextButton extends UIElement {
         this.onTouchListener = onTouchListener;
     }
 
-    public void center() {
+    private void center() {
         Vector2 currPos = getPos();
         currPos.set(currPos.x - width / 2, currPos.y);
     }

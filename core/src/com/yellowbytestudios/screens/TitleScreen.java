@@ -41,7 +41,6 @@ public class TitleScreen extends Screen {
 
     private void createMenuButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
         TextButton button = new TextButton(name, pos, onTouchListener);
-        button.center();
         UIElements.add(button);
     }
 

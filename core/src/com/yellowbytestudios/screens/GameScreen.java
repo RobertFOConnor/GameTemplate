@@ -22,14 +22,14 @@ public class GameScreen extends Screen {
     }
 
     private void setupGUI () {
-        UIElements.add(new TextButton("Pause", getTopLeft().add(50, -50), new OnTouchListener() {
+        UIElements.add(new TextButton("Pause", getTopLeft().add(150, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 paused = !paused;
             }
         }));
 
-        UIElements.add(new TextButton("Close", getTopRight().add(-280, -50), new OnTouchListener() {
+        UIElements.add(new TextButton("Close", getTopRight().add(-150, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();

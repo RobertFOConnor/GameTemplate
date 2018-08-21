@@ -2,15 +2,15 @@ package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.TextView;
+import com.yellowbytestudios.ui.ToggleButton;
+
 import static com.yellowbytestudios.ui.Metrics.getBottomCenter;
 import static com.yellowbytestudios.ui.Metrics.getCenter;
 import static com.yellowbytestudios.ui.Metrics.getTopCenter;
-
 
 public class SettingsScreen extends Screen {
 
@@ -22,44 +22,30 @@ public class SettingsScreen extends Screen {
         tv.center();
         UIElements.add(tv);
 
-        createMenuButton("Music: OFF", getCenter().add(0, 100), new OnTouchListener() {
+        ToggleButton musicButton = new ToggleButton("Music: on", "Music: off", getCenter().add(0, 100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                if (Sounds.toggleMusic()) {
-                    updateButtonText(1, "Music: ON");
-                } else {
-                    updateButtonText(1, "Music: OFF");
-                }
+                Sounds.toggleMusic();
             }
-        });
+        }, Sounds.isMusicEnabled());
 
-        createMenuButton("Sound: ON", getCenter().add(0, -100), new OnTouchListener() {
+        ToggleButton soundButton = new ToggleButton("Sounds: on", "Sounds: off", getCenter().add(0, -100), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                if (Sounds.toggleSound()) {
-                    updateButtonText(2, "Sound: ON");
-                } else {
-                    updateButtonText(2, "Sound: OFF");
-                }
+                Sounds.toggleSound();
             }
-        });
+        }, Sounds.isSoundFXEnabled());
 
-        createMenuButton("Go Back", getBottomCenter().add(0, 200), new OnTouchListener() {
+        TextButton backButton = new TextButton("Go Back", getBottomCenter().add(0, 200), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();
             }
         });
-    }
 
-    private void updateButtonText(int index, String text) {
-        ((TextButton) UIElements.get(index)).setName(text);
-    }
-
-    private void createMenuButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
-        TextButton button = new TextButton(name, pos, onTouchListener);
-        button.center();
-        UIElements.add(button);
+        UIElements.add(musicButton);
+        UIElements.add(soundButton);
+        UIElements.add(backButton);
     }
 
     @Override

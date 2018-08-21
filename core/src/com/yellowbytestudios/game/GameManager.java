@@ -35,8 +35,8 @@ public class GameManager {
 
     private Vector2 getTouchPos() {
         return camera.unprojectCoordinates(
-                Gdx.input.getX(0),
-                Gdx.input.getY(0)
+                Gdx.input.getX(),
+                Gdx.input.getY()
         );
     }
 
