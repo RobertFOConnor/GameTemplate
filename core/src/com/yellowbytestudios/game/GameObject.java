@@ -1,6 +1,7 @@
 package com.yellowbytestudios.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,17 +10,21 @@ public abstract class GameObject {
 
     private int id;
     private String name;
-    private Vector2 pos;
-    private Texture image;
+    private Sprite sprite;
     private float width;
     private float height;
 
+    public GameObject(Texture image) {
+        sprite = new Sprite(image);
+    }
+
     public void render(SpriteBatch sb) {
-        sb.draw(image, pos.x, pos.y, width, height);
+        sb.draw(sprite, sprite.getX(), sprite.getY(), width, height);
+
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(pos.x, pos.y, width, height);
+        return new Rectangle(sprite.getX(), sprite.getY(), width, height);
     }
 
     public boolean checkTouch(Vector2 touch) {
@@ -42,20 +47,20 @@ public abstract class GameObject {
         this.name = name;
     }
 
-    public Vector2 getPos() {
-        return pos;
+    public float getX() {
+        return sprite.getX();
     }
 
-    public void setPos(Vector2 pos) {
-        this.pos = pos;
+    public float getY() {
+        return sprite.getY();
+    }
+
+    public void setPos(float x, float y) {
+        sprite.setPosition(x, y);
     }
 
     public Texture getImage() {
-        return image;
-    }
-
-    public void setImage(Texture image) {
-        this.image = image;
+        return sprite.getTexture();
     }
 
     public float getWidth() {

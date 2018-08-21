@@ -13,12 +13,15 @@ public class TextView extends UIElement {
     private float width = MainGame.WIDTH - 200;
 
     public TextView(String name, Vector2 pos) {
+        super(pos.x, pos.y);
         setName(name);
         setPos(pos);
     }
 
     public void render(SpriteBatch sb) {
-        Fonts.detailsFont.draw(sb, name, pos.x, pos.y, width, Align.center, true);
+        if (isVisible()) {
+            Fonts.detailsFont.draw(sb, name, pos.x, pos.y, width, Align.center, true);
+        }
     }
 
     @Override

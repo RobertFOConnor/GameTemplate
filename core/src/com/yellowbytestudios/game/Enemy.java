@@ -7,24 +7,33 @@ import com.yellowbytestudios.media.Assets;
 
 public class Enemy extends GameObject {
 
-    private float speed = 600f;
+    private int health = 3;
+    private float speed = 400f;
 
     public Enemy() {
-        this.setImage(Assets.manager.get("enemy.png", Texture.class));
+        super(Assets.manager.get("enemy.png", Texture.class));
         this.setWidth(90);
         this.setHeight(90);
         reset();
     }
 
     public void update(float delta) {
-        getPos().add(0, -speed * delta);
+        setPos(getX(), getY() + (-speed * delta));
     }
 
     public boolean isOffScreen() {
-        return (getPos().y < -100);
+        return (getY() < -100);
     }
 
     public void reset() {
-        setPos(new Vector2((float) (Math.random() * MainGame.WIDTH - getWidth()), MainGame.HEIGHT + getHeight()));
+        setPos((float) (Math.random() * MainGame.WIDTH - getWidth() * 2) + getWidth(), MainGame.HEIGHT + getHeight());
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

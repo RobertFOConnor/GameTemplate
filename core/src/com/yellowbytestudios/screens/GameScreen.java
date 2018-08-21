@@ -6,13 +6,14 @@ import com.yellowbytestudios.game.GameManager;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 
+import static com.yellowbytestudios.ui.Metrics.getCenter;
 import static com.yellowbytestudios.ui.Metrics.getTopLeft;
 import static com.yellowbytestudios.ui.Metrics.getTopRight;
 
 public class GameScreen extends Screen {
 
     private GameManager gameManager;
-    private boolean paused = false;
+    TextButton scoreDisplay;
 
     @Override
     public void create() {
@@ -21,11 +22,11 @@ public class GameScreen extends Screen {
         setupGUI();
     }
 
-    private void setupGUI () {
+    private void setupGUI() {
         UIElements.add(new TextButton("Pause", getTopLeft().add(150, -50), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                paused = !paused;
+                gameManager.togglePause();
             }
         }));
 
@@ -35,15 +36,21 @@ public class GameScreen extends Screen {
                 goBack();
             }
         }));
+
+        scoreDisplay = new TextButton(gameManager.getScore()+"", getCenter().add(0, 300), new OnTouchListener() {
+            @Override
+            public void onTouch(Vector2 touch) {
+
+            }
+        });
+        UIElements.add(scoreDisplay);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-
-        if (!paused) {
-            gameManager.update(delta);
-        }
+        gameManager.update(delta);
+        scoreDisplay.setName(gameManager.getScore()+"");
     }
 
     @Override

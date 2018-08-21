@@ -11,13 +11,12 @@ public class TextButton extends UIElement {
 
     OnTouchListener onTouchListener;
     private String name;
-    private Vector2 pos;
     private float width;
     private float height;
 
     public TextButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
+        super(pos.x, pos.y);
         setName(name);
-        setPos(pos);
         setupBounds();
         setOnTouchListener(onTouchListener);
         center();
@@ -31,15 +30,17 @@ public class TextButton extends UIElement {
     }
 
     public void render(SpriteBatch sb) {
-        Fonts.GUIFont.draw(sb, getName(), pos.x, pos.y);
+        if (isVisible()) {
+            Fonts.GUIFont.draw(sb, getName(), getX(), getY());
+        }
     }
 
     Rectangle getBounds() {
-        return new Rectangle(pos.x, pos.y - height, width, height);
+        return new Rectangle(getX(), getY() - height, width, height);
     }
 
     public void checkTouch(Vector2 touch) {
-        if (getBounds().contains(touch)) {
+        if (getBounds().contains(touch) && isVisible()) {
             onTouchListener.onTouch(touch);
             Sounds.play("sound/click.wav");
         }
@@ -53,20 +54,11 @@ public class TextButton extends UIElement {
         this.name = name;
     }
 
-    public Vector2 getPos() {
-        return pos;
-    }
-
-    private void setPos(Vector2 pos) {
-        this.pos = pos;
-    }
-
     private void setOnTouchListener(OnTouchListener onTouchListener) {
         this.onTouchListener = onTouchListener;
     }
 
     private void center() {
-        Vector2 currPos = getPos();
-        currPos.set(currPos.x - width / 2, currPos.y);
+        setPos(getX() - width / 2, getY());
     }
 }

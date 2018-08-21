@@ -1,9 +1,43 @@
 package com.yellowbytestudios.ui;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class UIElement {
+
+    private Sprite sprite;
+    private boolean isVisible = true;
+
+    public UIElement(float x, float y) {
+        sprite = new Sprite();
+        sprite.setPosition(x, y);
+    }
+
     public abstract void render(SpriteBatch sb);
     public abstract void checkTouch(Vector2 touch);
+
+    public float getX() {
+        return sprite.getX();
+    }
+
+    public float getY() {
+        return sprite.getY();
+    }
+
+    public void setPos(float x, float y) {
+        sprite.setPosition(x, y);
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
 }

@@ -8,9 +8,11 @@ import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Fonts;
 import com.yellowbytestudios.screens.ScreenManager;
 import com.yellowbytestudios.screens.TitleScreen;
+import com.yellowbytestudios.ui.UIAnimator;
 
 public class MainGame extends ApplicationAdapter {
 
+    public static UIAnimator uiAnimator;
     public static int WIDTH = 1080;
     public static int HEIGHT = 1920;
     private SpriteBatch sb;
@@ -21,12 +23,13 @@ public class MainGame extends ApplicationAdapter {
         Fonts.load();
         Assets.load();
         sb = new SpriteBatch();
+        uiAnimator = new UIAnimator();
     }
 
     @Override
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glClearColor(0.35f, 0.7f, 0.8f, 0);
+        Gdx.gl20.glClearColor(0.15f, 0.4f, 0.5f, 0);
 
         if (Assets.update() && !loaded) {
             loaded = true;
@@ -34,6 +37,7 @@ public class MainGame extends ApplicationAdapter {
         }
 
         if(loaded) {
+            uiAnimator.update();
             ScreenManager.getCurrentScreen().update(Gdx.graphics.getDeltaTime());
             ScreenManager.getCurrentScreen().render(sb);
         }

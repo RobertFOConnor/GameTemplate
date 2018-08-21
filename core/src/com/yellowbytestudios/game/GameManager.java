@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.camera.OrthoCamera;
+import com.yellowbytestudios.media.Sounds;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,15 +13,16 @@ public class GameManager {
 
     private OrthoCamera camera;
     private Player player;
-    private ArrayList<Bullet> bullets;
-    private ArrayList<Enemy> enemies;
+    private GameObjectArray bullets;
+    private GameObjectArray enemies;
     private boolean addBullet = false;
+    private boolean paused = false;
+    private int score = 0;
 
     public GameManager(OrthoCamera camera) {
         player = new Player("Phil");
-        bullets = new ArrayList<Bullet>();
-        enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy());
+        bullets = new GameObjectArray();
+        enemies = new GameObjectArray();
         this.camera = camera;
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -31,29 +32,59 @@ public class GameManager {
                 addBullet = true;
             }
         }, 0, 400);
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                enemies.add(new Enemy());
+            }
+        }, 0, 1500);
     }
 
     public void update(float delta) {
-        for (Enemy e : enemies) {
-            e.update(delta);
-            if (e.isOffScreen()) {
-                e.reset();
+        if (!paused) {
+            for (int j = 0; j < enemies.size(); j++) {
+                Enemy e = (Enemy) enemies.get(j);
+                e.update(delta);
+                if (e.isOffScreen()) {
+                    enemies.remove(j);
+                }
+
+                for (int i = 0; i < bullets.size(); i++) {
+                    Bullet b = (Bullet) bullets.get(i);
+                    if (b.getBounds().overlaps(e.getBounds())) {
+                        bullets.remove(i);
+
+                        e.setHealth(e.getHealth() - 1);
+                        if (e.getHealth() <= 0) {
+                            enemies.remove(j);
+                            score++;
+                        }
+                        Sounds.play("sound/click.wav");
+                    }
+                }
             }
-        }
-        if (addBullet) {
-            bullets.add(new Bullet(player.getBulletStartPos()));
-            addBullet = false;
-        }
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet b = bullets.get(i);
-            b.update(delta);
-            if (b.isOffScreen()) {
-                bullets.remove(b);
+
+            if (addBullet) {
+                bullets.add(new Bullet(player.getBulletStartX(), player.getBulletStartY()));
+                addBullet = false;
             }
-        }
-        if (Gdx.input.isTouched(0)) {
-            Vector2 touch = getTouchPos();
-            player.onTouch(touch, delta);
+            for (int i = 0; i < bullets.size(); i++) {
+                Bullet b = (Bullet) bullets.get(i);
+                b.update(delta);
+                if (b.isOffScreen()) {
+                    bullets.remove(i);
+                }
+            }
+
+            enemies.doRemovals();
+            bullets.doRemovals();
+
+            if (Gdx.input.isTouched(0)) {
+                Vector2 touch = getTouchPos();
+                player.onTouch(touch, delta);
+            }
         }
     }
 
@@ -67,13 +98,17 @@ public class GameManager {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
-        for (Enemy e : enemies) {
-            e.render(sb);
-        }
-        for (Bullet b : bullets) {
-            b.render(sb);
-        }
+        enemies.render(sb);
+        bullets.render(sb);
         player.render(sb);
         sb.end();
+    }
+
+    public void togglePause() {
+        paused = !paused;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

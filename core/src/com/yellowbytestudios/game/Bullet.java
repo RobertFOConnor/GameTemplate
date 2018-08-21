@@ -8,18 +8,18 @@ import com.yellowbytestudios.media.Assets;
 public class Bullet extends GameObject {
     private float speed = 1000f;
 
-    public Bullet(Vector2 pos) {
-        this.setImage(Assets.manager.get("ship.png", Texture.class));
-        setPos(pos);
+    public Bullet(float x, float y) {
+        super(Assets.manager.get("ship.png", Texture.class));
+        setPos(x, y);
         this.setWidth(20);
         this.setHeight(70);
     }
 
     public void update(float delta) {
-        getPos().add(0, speed * delta);
+        setPos(getX(), getY() + speed * delta);
     }
 
     public boolean isOffScreen() {
-        return (getPos().y > MainGame.HEIGHT);
+        return (getY() > MainGame.HEIGHT);
     }
 }
