@@ -1,5 +1,6 @@
 package com.yellowbytestudios.ui;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -7,10 +8,17 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class UIElement {
 
     private Sprite sprite;
+    protected float width;
+    protected float height;
     private boolean isVisible = true;
 
     public UIElement(float x, float y) {
         sprite = new Sprite();
+        sprite.setPosition(x, y);
+    }
+
+    public UIElement(Texture texture, float x, float y) {
+        sprite = new Sprite(texture);
         sprite.setPosition(x, y);
     }
 
@@ -39,5 +47,21 @@ public abstract class UIElement {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 }

@@ -37,7 +37,7 @@ public class GameScreen extends Screen {
             }
         }));
 
-        scoreDisplay = new TextButton(gameManager.getScore()+"", getCenter().add(0, 300), new OnTouchListener() {
+        scoreDisplay = new TextButton(gameManager.getScore()+"", getCenter().add(0, 600), new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
 

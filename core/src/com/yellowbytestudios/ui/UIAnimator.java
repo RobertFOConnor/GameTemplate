@@ -3,6 +3,7 @@ package com.yellowbytestudios.ui;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.screens.Screen;
 import com.yellowbytestudios.screens.ScreenManager;
 
@@ -11,6 +12,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
+import sun.applet.Main;
 
 /**
  * Created by BobbyBoy on 17-Feb-16.
@@ -18,8 +20,14 @@ import aurelienribon.tweenengine.TweenManager;
 public class UIAnimator {
 
     //Tween manager.
+    public static boolean ANIMATIONS_ENABLED = true;
     public static TweenManager tweenManager;
-    private static long startTime, delta;
+    private static long startTime;
+
+    public static final int LEFT = 0;
+    public static final int RIGHT = 1;
+    public static final int TOP = 2;
+    public static final int BOTTOM = 3;
 
 
     public UIAnimator() {
@@ -27,17 +35,36 @@ public class UIAnimator {
         tweenManager = new TweenManager();
     }
 
-    public void update() {
-        delta = (TimeUtils.millis() - startTime + 1000) / 1000;
+    public void update(float delta) {
         tweenManager.update(delta);
     }
 
-    public static void applyAnimation(Sprite sprite, float startX, float startY, float duration) {
-        float targetX = sprite.getX();
-        float targetY = sprite.getY();
-        sprite.setPosition(startX, startY);
-        Tween.to(sprite, SpriteAccessor.POS_XY, duration)
-                .target(targetX, targetY).ease(TweenEquations.easeOutQuart)
+    public static void applyAnimation(UIElement element, int direction) {
+
+        float targetX = element.getX();
+        float targetY = element.getY();
+
+        float startX = 0;
+        float startY = 0;
+
+        if(direction == LEFT) {
+            startX = -element.getWidth();
+            startY = targetY;
+        } else if(direction == RIGHT) {
+            startX = MainGame.WIDTH + element.getWidth();
+            startY = targetY;
+        } else if(direction == TOP) {
+            startX = targetX;
+            startY = MainGame.HEIGHT;
+        } else if(direction == BOTTOM) {
+            startX = targetX;
+            startY = 0;
+        }
+
+
+        element.setPos(startX, startY);
+        Tween.to(element.getSprite(), SpriteAccessor.POS_XY, 0.7f)
+                .target(targetX, targetY).ease(TweenEquations.easeOutBack)
                 .start(tweenManager);
     }
 

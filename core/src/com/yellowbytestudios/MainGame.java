@@ -17,6 +17,7 @@ public class MainGame extends ApplicationAdapter {
     public static int HEIGHT = 1920;
     private SpriteBatch sb;
     private boolean loaded = false;
+    private float[] bg = {(float) (Math.random() * 1f), (float) (Math.random() * 1f), (float) (Math.random() * 1f)};
 
     @Override
     public void create() {
@@ -29,15 +30,15 @@ public class MainGame extends ApplicationAdapter {
     @Override
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glClearColor(0.15f, 0.4f, 0.5f, 0);
+        Gdx.gl20.glClearColor(bg[0] - 0.5f, bg[1], bg[2] - 0.1f, 0);
 
         if (Assets.update() && !loaded) {
             loaded = true;
             ScreenManager.setScreen(new TitleScreen());
         }
 
-        if(loaded) {
-            uiAnimator.update();
+        if (loaded) {
+            uiAnimator.update(Gdx.graphics.getDeltaTime());
             ScreenManager.getCurrentScreen().update(Gdx.graphics.getDeltaTime());
             ScreenManager.getCurrentScreen().render(sb);
         }

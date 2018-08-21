@@ -11,8 +11,6 @@ public class TextButton extends UIElement {
 
     OnTouchListener onTouchListener;
     private String name;
-    private float width;
-    private float height;
 
     public TextButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
         super(pos.x, pos.y);
@@ -22,11 +20,19 @@ public class TextButton extends UIElement {
         center();
     }
 
+    public TextButton(String name, float x, float y, OnTouchListener onTouchListener) {
+        super(x, y);
+        setName(name);
+        setupBounds();
+        setOnTouchListener(onTouchListener);
+        center();
+    }
+
     private void setupBounds() {
         GlyphLayout layout = new GlyphLayout();
         layout.setText(Fonts.GUIFont, name);
-        width = layout.width;
-        height = layout.height;
+        setWidth(layout.width);
+        setHeight(layout.height);
     }
 
     public void render(SpriteBatch sb) {
@@ -60,5 +66,9 @@ public class TextButton extends UIElement {
 
     private void center() {
         setPos(getX() - width / 2, getY());
+    }
+
+    public float getWidth() {
+        return width;
     }
 }

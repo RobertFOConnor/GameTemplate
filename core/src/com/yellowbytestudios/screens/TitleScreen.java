@@ -5,70 +5,75 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.UIAnimator;
+import com.yellowbytestudios.ui.UIImage;
 
-import static com.yellowbytestudios.ui.Metrics.getCenter;
+import static com.yellowbytestudios.ui.Metrics.CENTER_X;
+import static com.yellowbytestudios.ui.Metrics.CENTER_Y;
 
 public class TitleScreen extends Screen {
 
-    Sprite s;
+    private TextButton startButton, optionsButton, exitButton;
+    private UIImage logoImage;
 
     @Override
     public void create() {
         super.create();
 
-        s = new Sprite(Assets.manager.get("ship.png", Texture.class));
-        s.setPosition(340, getCenter().y+100);
-        UIAnimator.applyAnimation(s, s.getX(), -100, 50);
+        logoImage = new UIImage(Assets.manager.get("ship.png", Texture.class), 340, CENTER_Y + 100);
 
-
-        TextButton startButton = new TextButton("Start Game", getCenter().add(0, -200), new OnTouchListener() {
+        startButton = new TextButton("Start Game", CENTER_X, CENTER_Y - 200, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new GameScreen());
             }
         });
-        UIAnimator.applyAnimation(startButton.getSprite(), -1000, startButton.getY(), 50);
-        UIElements.add(startButton);
 
-        TextButton optionsButton = new TextButton("Options", getCenter().add(0, -400), new OnTouchListener() {
+        optionsButton = new TextButton("Options", CENTER_X, CENTER_Y - 400, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new SettingsScreen());
             }
         });
-        UIAnimator.applyAnimation(optionsButton.getSprite(), 1000, optionsButton.getY(), 50);
-        UIElements.add(optionsButton);
 
-        TextButton exitButton = new TextButton("Exit", getCenter().add(0, -600), new OnTouchListener() {
+        exitButton = new TextButton("Exit", CENTER_X, CENTER_Y - 600, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 goBack();
             }
         });
-        UIAnimator.applyAnimation(exitButton.getSprite(), -1000, exitButton.getY(), 50);
+
+        UIElements.add(logoImage);
+        UIElements.add(startButton);
+        UIElements.add(optionsButton);
         UIElements.add(exitButton);
 
-        UIAnimator.startAnimation();
-
+        animateUI();
         Sounds.setMusic("music/title_music.mp3");
+    }
+
+    private void animateUI() {
+        if (UIAnimator.ANIMATIONS_ENABLED) {
+            UIAnimator.applyAnimation(logoImage, UIAnimator.BOTTOM);
+            UIAnimator.applyAnimation(startButton, UIAnimator.LEFT);
+            UIAnimator.applyAnimation(optionsButton, UIAnimator.RIGHT);
+            UIAnimator.applyAnimation(exitButton, UIAnimator.LEFT);
+        }
     }
 
     @Override
     public void update(float delta) {
-       super.update(delta);
+        super.update(delta);
     }
 
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        sb.begin();
-        s.draw(sb);
-        sb.end();
     }
 
     @Override
