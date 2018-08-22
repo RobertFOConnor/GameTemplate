@@ -1,6 +1,7 @@
 package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Sounds;
@@ -56,8 +57,8 @@ public class SettingsScreen extends Screen {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        super.render(sb);
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
+        super.render(sb, sr);
     }
 
     @Override

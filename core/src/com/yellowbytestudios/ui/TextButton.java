@@ -3,6 +3,7 @@ package com.yellowbytestudios.ui;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.media.Fonts;
@@ -29,7 +30,7 @@ public class TextButton extends UIElement {
         setHeight(layout.height);
     }
 
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
         if (isVisible()) {
             font.setColor(getSprite().getColor());
             font.draw(sb, getName(), getX(), getY());

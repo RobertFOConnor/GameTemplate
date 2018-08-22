@@ -3,6 +3,7 @@ package com.yellowbytestudios.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -44,11 +45,11 @@ public abstract class Screen {
         return new Vector2(rawtouch.x, rawtouch.y);
     }
 
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         for (UIElement uiElement : UIElements) {
-            uiElement.render(sb);
+            uiElement.render(sb, sr);
         }
         sb.end();
     }

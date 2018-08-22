@@ -3,6 +3,7 @@ package com.yellowbytestudios.ui;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.yellowbytestudios.MainGame;
@@ -32,7 +33,7 @@ public class TextView extends UIElement {
         setHeight(layout.height);
     }
 
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
         if (isVisible()) {
             font.draw(sb, name, getX(), getY(), width, Align.center, true);
         }

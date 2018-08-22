@@ -2,6 +2,7 @@ package com.yellowbytestudios.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class UIImage extends UIElement {
@@ -11,7 +12,7 @@ public class UIImage extends UIElement {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
         getSprite().draw(sb);
     }
 

@@ -1,6 +1,7 @@
 package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.game.GameManager;
 import com.yellowbytestudios.media.Fonts;
@@ -62,9 +63,9 @@ public class GameScreen extends Screen {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
         gameManager.render(sb); // 1. render the game
-        super.render(sb); // 2. render the GUI
+        super.render(sb, sr); // 2. render the GUI
     }
 
     @Override

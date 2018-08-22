@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Sounds;
+import com.yellowbytestudios.ui.LabelButton;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
 import com.yellowbytestudios.ui.UIAnimator;
@@ -18,7 +20,8 @@ import static com.yellowbytestudios.ui.Metrics.CENTER_Y;
 
 public class TitleScreen extends Screen {
 
-    private TextButton startButton, optionsButton, exitButton;
+    private LabelButton startButton;
+    TextButton optionsButton, exitButton;
     private UIImage logoImage;
 
     @Override
@@ -27,7 +30,7 @@ public class TitleScreen extends Screen {
 
         logoImage = new UIImage(Assets.manager.get("ship.png", Texture.class), 340, CENTER_Y + 100);
 
-        startButton = new TextButton("Start Game", CENTER_X, CENTER_Y - 200, new OnTouchListener() {
+        startButton = new LabelButton("Play", CENTER_X, CENTER_Y - 100, 500, 150, 25, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new GameScreen());
@@ -72,8 +75,8 @@ public class TitleScreen extends Screen {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        super.render(sb);
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
+        super.render(sb, sr);
     }
 
     @Override
