@@ -8,7 +8,7 @@ import com.yellowbytestudios.media.Assets;
 public class Enemy extends GameObject {
 
     private int health = 3;
-    private float speed = 400f;
+    private float speed = 500f;
 
     public Enemy() {
         super(Assets.manager.get("enemy.png", Texture.class));

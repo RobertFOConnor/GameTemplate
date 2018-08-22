@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.media.Sounds;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,8 +17,11 @@ public class GameManager {
     private GameObjectArray bullets;
     private GameObjectArray enemies;
     private boolean addBullet = false;
+    private boolean addEnemy = false;
     private boolean paused = false;
     private int score = 0;
+    private ArrayList<Timer> timers;
+    private boolean gameOver = false;
 
     public GameManager(OrthoCamera camera) {
         player = new Player("Phil");
@@ -25,25 +29,37 @@ public class GameManager {
         enemies = new GameObjectArray();
         this.camera = camera;
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        startTimers();
+    }
+
+    private void startTimers() {
+        timers = new ArrayList<Timer>();
+        Timer bulletTimer = new Timer();
+        bulletTimer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
             public void run() {
                 addBullet = true;
+                System.out.println("add_bullet");
+                Sounds.play("sound/laser.wav");
             }
-        }, 0, 400);
+        }, 0, 130);
+        timers.add(bulletTimer);
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        Timer enemiesTimer = new Timer();
+        enemiesTimer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
             public void run() {
-                enemies.add(new Enemy());
+                addEnemy = true;
+                System.out.println("add_enemy");
             }
-        }, 0, 1500);
+        }, 0, 700);
+        timers.add(enemiesTimer);
     }
 
     public void update(float delta) {
-        if (!paused) {
+        if (!paused && !gameOver) {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy e = (Enemy) enemies.get(j);
                 e.update(delta);
@@ -60,8 +76,8 @@ public class GameManager {
                         if (e.getHealth() <= 0) {
                             enemies.remove(j);
                             score++;
+                            Sounds.play("sound/explode.wav");
                         }
-                        Sounds.play("sound/click.wav");
                     }
                 }
             }
@@ -70,6 +86,12 @@ public class GameManager {
                 bullets.add(new Bullet(player.getBulletStartX(), player.getBulletStartY()));
                 addBullet = false;
             }
+
+            if (addEnemy) {
+                enemies.add(new Enemy());
+                addEnemy = false;
+            }
+
             for (int i = 0; i < bullets.size(); i++) {
                 Bullet b = (Bullet) bullets.get(i);
                 b.update(delta);
@@ -106,9 +128,29 @@ public class GameManager {
 
     public void togglePause() {
         paused = !paused;
+
+        if (paused) {
+            stopTimers();
+        } else {
+            startTimers();
+        }
+    }
+
+    public void stopTimers() {
+        for (int i = 0; i < timers.size(); i++) {
+            timers.get(i).cancel();
+        }
     }
 
     public int getScore() {
         return score;
+    }
+
+    public void dispose() {
+        stopTimers();
+        enemies = null;
+        bullets = null;
+        player = null;
+        gameOver = true;
     }
 }

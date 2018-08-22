@@ -13,9 +13,11 @@ public abstract class GameObject {
     private Sprite sprite;
     private float width;
     private float height;
+    private Rectangle bounds;
 
     public GameObject(Texture image) {
         sprite = new Sprite(image);
+        bounds = new Rectangle();
     }
 
     public void render(SpriteBatch sb) {
@@ -24,7 +26,8 @@ public abstract class GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(sprite.getX(), sprite.getY(), width, height);
+        bounds.set(sprite.getX(), sprite.getY(), width, height);
+        return bounds;
     }
 
     public boolean checkTouch(Vector2 touch) {

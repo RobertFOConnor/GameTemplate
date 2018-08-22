@@ -66,7 +66,7 @@ public class GameScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        gameManager.dispose();
     }
 
     @Override

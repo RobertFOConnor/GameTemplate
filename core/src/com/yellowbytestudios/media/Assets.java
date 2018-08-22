@@ -23,6 +23,8 @@ public class Assets {
 
         //Sound
         assetMap.put("sound/click.wav", Sound.class);
+        assetMap.put("sound/laser.wav", Sound.class);
+        assetMap.put("sound/explode.wav", Sound.class);
 
         //Music
         assetMap.put("music/title_music.mp3", Music.class);

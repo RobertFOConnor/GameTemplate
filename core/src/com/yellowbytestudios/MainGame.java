@@ -17,7 +17,7 @@ public class MainGame extends ApplicationAdapter {
     public static int HEIGHT = 1920;
     private SpriteBatch sb;
     private boolean loaded = false;
-    private float[] bg = {(float) (Math.random() * 1f), (float) (Math.random() * 1f), (float) (Math.random() * 1f)};
+    private float[] bg = {(float) (Math.random() * 1f), (float) (Math.random() * 0.5f), (float) (Math.random() * 1f)};
 
     @Override
     public void create() {
@@ -30,7 +30,7 @@ public class MainGame extends ApplicationAdapter {
     @Override
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glClearColor(bg[0] - 0.5f, bg[1], bg[2] - 0.1f, 0);
+        Gdx.gl20.glClearColor(bg[0], bg[1], bg[2], 0);
 
         if (Assets.update() && !loaded) {
             loaded = true;

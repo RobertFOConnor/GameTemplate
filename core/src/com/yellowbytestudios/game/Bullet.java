@@ -6,7 +6,7 @@ import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Assets;
 
 public class Bullet extends GameObject {
-    private float speed = 1000f;
+    private float speed = 1300f;
 
     public Bullet(float x, float y) {
         super(Assets.manager.get("ship.png", Texture.class));

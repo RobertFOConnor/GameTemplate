@@ -8,7 +8,7 @@ import com.yellowbytestudios.media.Assets;
 
 public class Player extends GameObject {
 
-    private float speed = 700f;
+    private float speed = 1000f;
 
     public Player(String name) {
         super(Assets.manager.get("ship.png", Texture.class));
