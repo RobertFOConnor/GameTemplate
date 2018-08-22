@@ -1,5 +1,7 @@
 package com.yellowbytestudios.ui;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
@@ -8,19 +10,31 @@ import com.yellowbytestudios.media.Fonts;
 
 public class TextView extends UIElement {
 
-    private String name;
-    private Vector2 pos;
-    private float width = MainGame.WIDTH - 200;
+    private BitmapFont font = Fonts.getFont(Fonts.size.SMALL);
+    private String name = "";
 
-    public TextView(String name, Vector2 pos) {
-        super(pos.x, pos.y);
+    public TextView(String name, float x, float y, int width) {
+        super(x, y);
         setName(name);
-        setPos(pos);
+        setWidth(width);
+    }
+
+    public TextView(String name, float x, float y) {
+        super(x, y);
+        setName(name);
+        setupBounds();
+    }
+
+    private void setupBounds() {
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(font, name);
+        setWidth(layout.width);
+        setHeight(layout.height);
     }
 
     public void render(SpriteBatch sb) {
         if (isVisible()) {
-            Fonts.detailsFont.draw(sb, name, pos.x, pos.y, width, Align.center, true);
+            font.draw(sb, name, getX(), getY(), width, Align.center, true);
         }
     }
 
@@ -35,18 +49,17 @@ public class TextView extends UIElement {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Vector2 getPos() {
-        return pos;
-    }
-
-    private void setPos(Vector2 pos) {
-        this.pos = pos;
+        setupBounds();
+        center();
     }
 
     public void center() {
-        Vector2 currPos = getPos();
-        currPos.set(currPos.x - width / 2, currPos.y);
+        setPos(MainGame.WIDTH / 2 - width / 2, getY());
+    }
+
+    public void setFont(BitmapFont font) {
+        this.font = font;
+        setupBounds();
+        center();
     }
 }

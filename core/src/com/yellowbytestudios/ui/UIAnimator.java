@@ -1,8 +1,8 @@
 package com.yellowbytestudios.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.screens.Screen;
 import com.yellowbytestudios.screens.ScreenManager;
@@ -12,7 +12,6 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
-import sun.applet.Main;
 
 /**
  * Created by BobbyBoy on 17-Feb-16.
@@ -22,7 +21,6 @@ public class UIAnimator {
     //Tween manager.
     public static boolean ANIMATIONS_ENABLED = true;
     public static TweenManager tweenManager;
-    private static long startTime;
 
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
@@ -41,56 +39,39 @@ public class UIAnimator {
 
     public static void applyAnimation(UIElement element, int direction) {
 
+        float duration = 0.9f;
+
         float targetX = element.getX();
         float targetY = element.getY();
 
         float startX = 0;
         float startY = 0;
 
-        if(direction == LEFT) {
+        if (direction == LEFT) {
             startX = -element.getWidth();
             startY = targetY;
-        } else if(direction == RIGHT) {
+        } else if (direction == RIGHT) {
             startX = MainGame.WIDTH + element.getWidth();
             startY = targetY;
-        } else if(direction == TOP) {
+        } else if (direction == TOP) {
             startX = targetX;
             startY = MainGame.HEIGHT;
-        } else if(direction == BOTTOM) {
+        } else if (direction == BOTTOM) {
             startX = targetX;
             startY = 0;
         }
+        Sprite sprite = element.getSprite();
 
 
         element.setPos(startX, startY);
-        Tween.to(element.getSprite(), SpriteAccessor.POS_XY, 0.7f)
+        Tween.to(sprite, SpriteAccessor.POS_XY, duration)
                 .target(targetX, targetY).ease(TweenEquations.easeOutBack)
                 .start(tweenManager);
-    }
 
-    public static void applyExitAnimation(Sprite b, float x, float y, final Screen s) {
-        TweenCallback myCallBack = new TweenCallback() {
-            @Override
-            public void onEvent(int type, BaseTween<?> source) {
-                ScreenManager.setScreen(s);
-            }
-        };
-
-        Tween.to(b, SpriteAccessor.POS_XY, 17f)
-                .target(x, y).ease(TweenEquations.easeOutBack).setCallback(myCallBack)
-                .setCallbackTriggers(TweenCallback.END).start(tweenManager);
-    }
-
-
-    public static void applyFadeAnimation(Sprite b) {
-        Tween.to(b, SpriteAccessor.OPACITY, 200f)
-                .target(1f).ease(TweenEquations.easeOutBack)
-                .start(tweenManager);
-    }
-
-    public static void applyLevelStartAnimation(Sprite b, float x, float y) {
-        Tween.to(b, SpriteAccessor.POS_XY, 35f)
-                .target(x, y).ease(TweenEquations.easeOutBounce)
+        Color c = sprite.getColor();
+        sprite.setColor(c.r, c.g, c.b, 0);
+        Tween.to(sprite, SpriteAccessor.OPACITY, duration)
+                .target(1f).ease(TweenEquations.easeNone)
                 .start(tweenManager);
     }
 
@@ -109,7 +90,4 @@ public class UIAnimator {
                 .setCallbackTriggers(TweenCallback.END).start(tweenManager);
     }
 
-    public static void startAnimation() {
-        startTime = TimeUtils.millis();
-    }
 }

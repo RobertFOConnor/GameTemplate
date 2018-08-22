@@ -1,10 +1,11 @@
 package com.yellowbytestudios.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.camera.OrthoCamera;
 import com.yellowbytestudios.media.Sounds;
+import com.yellowbytestudios.screens.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -12,7 +13,7 @@ import java.util.TimerTask;
 
 public class GameManager {
 
-    private OrthoCamera camera;
+    private OrthographicCamera camera;
     private Player player;
     private GameObjectArray bullets;
     private GameObjectArray enemies;
@@ -23,7 +24,7 @@ public class GameManager {
     private ArrayList<Timer> timers;
     private boolean gameOver = false;
 
-    public GameManager(OrthoCamera camera) {
+    public GameManager(OrthographicCamera camera) {
         player = new Player("Phil");
         bullets = new GameObjectArray();
         enemies = new GameObjectArray();
@@ -104,17 +105,10 @@ public class GameManager {
             bullets.doRemovals();
 
             if (Gdx.input.isTouched(0)) {
-                Vector2 touch = getTouchPos();
+                Vector2 touch = ScreenManager.getCurrentScreen().getTouchPos();
                 player.onTouch(touch, delta);
             }
         }
-    }
-
-    private Vector2 getTouchPos() {
-        return camera.unprojectCoordinates(
-                Gdx.input.getX(),
-                Gdx.input.getY()
-        );
     }
 
     public void render(SpriteBatch sb) {
@@ -136,7 +130,7 @@ public class GameManager {
         }
     }
 
-    public void stopTimers() {
+    private void stopTimers() {
         for (int i = 0; i < timers.size(); i++) {
             timers.get(i).cancel();
         }

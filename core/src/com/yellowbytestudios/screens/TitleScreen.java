@@ -60,9 +60,9 @@ public class TitleScreen extends Screen {
     private void animateUI() {
         if (UIAnimator.ANIMATIONS_ENABLED) {
             UIAnimator.applyAnimation(logoImage, UIAnimator.BOTTOM);
-            UIAnimator.applyAnimation(startButton, UIAnimator.LEFT);
-            UIAnimator.applyAnimation(optionsButton, UIAnimator.RIGHT);
-            UIAnimator.applyAnimation(exitButton, UIAnimator.LEFT);
+            UIAnimator.applyAnimation(startButton, UIAnimator.BOTTOM);
+            UIAnimator.applyAnimation(optionsButton, UIAnimator.BOTTOM);
+            UIAnimator.applyAnimation(exitButton, UIAnimator.BOTTOM);
         }
     }
 
@@ -74,11 +74,6 @@ public class TitleScreen extends Screen {
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-    }
-
-    @Override
-    public void resize(int w, int h) {
-        camera.resize();
     }
 
     @Override

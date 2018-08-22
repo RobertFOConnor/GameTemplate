@@ -1,5 +1,6 @@
 package com.yellowbytestudios.ui;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,14 +12,7 @@ public class TextButton extends UIElement {
 
     OnTouchListener onTouchListener;
     private String name;
-
-    public TextButton(String name, Vector2 pos, OnTouchListener onTouchListener) {
-        super(pos.x, pos.y);
-        setName(name);
-        setupBounds();
-        setOnTouchListener(onTouchListener);
-        center();
-    }
+    private BitmapFont font = Fonts.getFont(Fonts.size.MEDIUM);
 
     public TextButton(String name, float x, float y, OnTouchListener onTouchListener) {
         super(x, y);
@@ -30,14 +24,15 @@ public class TextButton extends UIElement {
 
     private void setupBounds() {
         GlyphLayout layout = new GlyphLayout();
-        layout.setText(Fonts.GUIFont, name);
+        layout.setText(font, name);
         setWidth(layout.width);
         setHeight(layout.height);
     }
 
     public void render(SpriteBatch sb) {
         if (isVisible()) {
-            Fonts.GUIFont.draw(sb, getName(), getX(), getY());
+            font.setColor(getSprite().getColor());
+            font.draw(sb, getName(), getX(), getY());
         }
     }
 

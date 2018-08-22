@@ -9,8 +9,8 @@ public class ToggleButton extends TextButton {
     private String activeName;
     private String inactiveName;
 
-    public ToggleButton(String activeName, String inactiveName, Vector2 pos, OnTouchListener onTouchListener, boolean isActive) {
-        super(activeName, pos, onTouchListener);
+    public ToggleButton(String activeName, String inactiveName, float x, float y, OnTouchListener onTouchListener, boolean isActive) {
+        super(activeName, x, y, onTouchListener);
         setActiveName(activeName);
         setInactiveName(inactiveName);
         setActive(isActive);
