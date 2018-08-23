@@ -24,7 +24,7 @@ public class GameScreen extends Screen {
     @Override
     public void create() {
         super.create();
-        gameManager = new GameManager(camera);
+        gameManager = new GameManager();
         setupGUI();
     }
 

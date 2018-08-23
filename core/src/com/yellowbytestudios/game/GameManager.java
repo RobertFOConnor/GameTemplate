@@ -2,120 +2,92 @@ package com.yellowbytestudios.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.media.Sounds;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.yellowbytestudios.MainGame;
+import com.yellowbytestudios.game.map.Tile;
+import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.screens.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
+
+import static com.yellowbytestudios.game.map.Tile.TILE_SIZE;
 
 public class GameManager {
 
     private OrthographicCamera camera;
+    private FitViewport viewport;
+
     private Player player;
-    private GameObjectArray bullets;
-    private GameObjectArray enemies;
-    private boolean addBullet = false;
-    private boolean addEnemy = false;
     private boolean paused = false;
     private int score = 0;
     private ArrayList<Timer> timers;
     private boolean gameOver = false;
 
-    public GameManager(OrthographicCamera camera) {
-        player = new Player("Phil");
-        bullets = new GameObjectArray();
-        enemies = new GameObjectArray();
-        this.camera = camera;
+    private ArrayList<Tile> tileMap;
 
+    public GameManager() {
+        setupGameCamera();
+        player = new Player("Phil");
+        player.setPos(camera.position.x, camera.position.y);
+
+        tileMap = new ArrayList<Tile>();
+
+        for (int x = 0; x < MainGame.WIDTH / TILE_SIZE; x++) {
+            for (int y = 0; y < MainGame.HEIGHT / TILE_SIZE; y++) {
+                tileMap.add(new Tile(Assets.manager.get("ship.png", Texture.class), x * TILE_SIZE, y * TILE_SIZE));
+            }
+        }
         startTimers();
+    }
+
+    private void setupGameCamera() {
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(MainGame.WIDTH, MainGame.HEIGHT, camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.update();
     }
 
     private void startTimers() {
         timers = new ArrayList<Timer>();
         Timer bulletTimer = new Timer();
-        bulletTimer.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                addBullet = true;
-                System.out.println("add_bullet");
-                Sounds.play("sound/laser.wav");
-            }
-        }, 0, 130);
-        timers.add(bulletTimer);
-
-        Timer enemiesTimer = new Timer();
-        enemiesTimer.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                addEnemy = true;
-                System.out.println("add_enemy");
-            }
-        }, 0, 700);
-        timers.add(enemiesTimer);
+//        bulletTimer.scheduleAtFixedRate(new TimerTask() {
+//
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 0, 130);
+//        timers.add(bulletTimer);
     }
 
     public void update(float delta) {
         if (!paused && !gameOver) {
-            for (int j = 0; j < enemies.size(); j++) {
-                Enemy e = (Enemy) enemies.get(j);
-                e.update(delta);
-                if (e.isOffScreen()) {
-                    enemies.remove(j);
-                }
 
-                for (int i = 0; i < bullets.size(); i++) {
-                    Bullet b = (Bullet) bullets.get(i);
-                    if (b.getBounds().overlaps(e.getBounds())) {
-                        bullets.remove(i);
-
-                        e.setHealth(e.getHealth() - 1);
-                        if (e.getHealth() <= 0) {
-                            enemies.remove(j);
-                            score++;
-                            Sounds.play("sound/explode.wav");
-                        }
-                    }
-                }
-            }
-
-            if (addBullet) {
-                bullets.add(new Bullet(player.getBulletStartX(), player.getBulletStartY()));
-                addBullet = false;
-            }
-
-            if (addEnemy) {
-                enemies.add(new Enemy());
-                addEnemy = false;
-            }
-
-            for (int i = 0; i < bullets.size(); i++) {
-                Bullet b = (Bullet) bullets.get(i);
-                b.update(delta);
-                if (b.isOffScreen()) {
-                    bullets.remove(i);
-                }
-            }
-
-            enemies.doRemovals();
-            bullets.doRemovals();
 
             if (Gdx.input.isTouched(0)) {
                 Vector2 touch = ScreenManager.getCurrentScreen().getTouchPos();
                 player.onTouch(touch, delta);
             }
         }
+        camera.position.set(player.getX(), player.getY(), 0);
+        camera.update();
     }
 
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
-        enemies.render(sb);
-        bullets.render(sb);
+
+        for (Tile t : tileMap) {
+            t.render(sb);
+        }
+
         player.render(sb);
         sb.end();
     }
@@ -142,8 +114,6 @@ public class GameManager {
 
     public void dispose() {
         stopTimers();
-        enemies = null;
-        bullets = null;
         player = null;
         gameOver = true;
     }
