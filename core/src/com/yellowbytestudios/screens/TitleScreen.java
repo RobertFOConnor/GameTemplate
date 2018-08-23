@@ -30,7 +30,7 @@ public class TitleScreen extends Screen {
 
         logoImage = new UIImage(Assets.manager.get("ship.png", Texture.class), 340, CENTER_Y + 100);
 
-        startButton = new LabelButton("Play", CENTER_X, CENTER_Y - 100, 500, 150, 25, new OnTouchListener() {
+        startButton = new LabelButton("Play", CENTER_X, CENTER_Y - 100, 500, 150, 20, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 ScreenManager.setScreen(new GameScreen());
