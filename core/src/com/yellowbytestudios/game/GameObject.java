@@ -54,8 +54,16 @@ public abstract class GameObject {
         return sprite.getX();
     }
 
+    public float getX2() {
+        return sprite.getX()+width;
+    }
+
     public float getY() {
         return sprite.getY();
+    }
+
+    public float getY2() {
+        return sprite.getY() + height;
     }
 
     public void setPos(float x, float y) {
