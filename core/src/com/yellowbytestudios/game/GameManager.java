@@ -1,15 +1,9 @@
 package com.yellowbytestudios.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.game.tile.TileManager;
-import com.yellowbytestudios.screens.ScreenManager;
-
-import java.util.ArrayList;
-import java.util.Timer;
 
 public class GameManager {
 
@@ -27,16 +21,13 @@ public class GameManager {
 
         tileManager = new TileManager(camera);
         player = new Player("Phil");
-        player.setPos(tileManager.getMapWidth() / 2, tileManager.getMapHeight() / 2);
+        player.setPos(960, 80);
     }
 
     public void update(float delta) {
         if (!paused && !gameOver) {
-
-            if (Gdx.input.isTouched(0)) {
-                Vector2 touch = ScreenManager.getCurrentScreen().getTouchPos();
-                player.onTouch(touch, delta);
-            }
+            player.update(delta);
+            tileManager.update(player);
             camera.position.set(player.getX(), player.getY(), 0);
             camera.update();
         }

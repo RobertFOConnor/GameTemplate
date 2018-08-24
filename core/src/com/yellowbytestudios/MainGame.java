@@ -46,7 +46,7 @@ public class MainGame extends ApplicationAdapter {
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             sr.setProjectionMatrix(ScreenManager.getCurrentScreen().getCamera().combined);
             sr.begin(ShapeRenderer.ShapeType.Filled);
-            sr.rect(0, 0, WIDTH, HEIGHT, Color.CORAL, Color.CORAL, Color.FIREBRICK, Color.FIREBRICK);
+            //sr.rect(0, 0, WIDTH, HEIGHT, Color.CORAL, Color.CORAL, Color.FIREBRICK, Color.FIREBRICK);
             sr.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
 

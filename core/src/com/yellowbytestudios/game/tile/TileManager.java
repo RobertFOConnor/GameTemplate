@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.yellowbytestudios.game.Player;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,11 @@ public class TileManager {
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
 
-    private float tileSize;
+    private static float tileSize = 80;
     private float mapWidth;
     private float mapHeight;
 
-    ArrayList<Vector2[]> lines;
+    private ArrayList<Vector2[]> lines;
     private ShapeRenderer sr;
 
     public TileManager(OrthographicCamera camera) {
@@ -32,10 +33,13 @@ public class TileManager {
         tiledMap = new TmxMapLoader().load("tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         setupMapWidthHeight();
-        TileCollision tc = new TileCollision();
-
         sr = new ShapeRenderer();
+        TileWallMaker tc = new TileWallMaker();
         lines = tc.createWalls((TiledMapTileLayer) tiledMap.getLayers().get(0));
+    }
+
+    public void update(Player player) {
+        TileCollision.checkCollision(player, lines);
     }
 
     public void render() {
@@ -46,7 +50,7 @@ public class TileManager {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.WHITE);
         for (Vector2[] v : lines) {
-            sr.rectLine(v[0], v[1], 5);
+            //sr.rectLine(v[0], v[1], 3); //DEBUG
         }
         sr.end();
     }
@@ -66,5 +70,9 @@ public class TileManager {
 
     public float getMapHeight() {
         return mapHeight * tileSize;
+    }
+
+    public static float getTileSize() {
+        return tileSize;
     }
 }

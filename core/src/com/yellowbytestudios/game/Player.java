@@ -1,13 +1,15 @@
 package com.yellowbytestudios.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
+import com.yellowbytestudios.game.input.SwipeGesture;
+import com.yellowbytestudios.game.tile.TileManager;
 import com.yellowbytestudios.media.Assets;
 
 public class Player extends GameObject {
 
-    private float speed = 1000f;
+    private float speed = 2000f;
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -17,41 +19,80 @@ public class Player extends GameObject {
         super(Assets.manager.get("ship.png", Texture.class));
         this.setName(name);
 
-        this.setPos(MainGame.WIDTH / 2, MainGame.HEIGHT / 9);
-        this.setWidth(100);
-        this.setHeight(100);
+        this.setPos(960, 80);
+        this.setWidth(80);
+        this.setHeight(80);
+
+        Gdx.input.setInputProcessor(new SwipeGesture(new SwipeGesture.DirectionListener() {
+
+            @Override
+            public void onUp() {
+                if (!isMoving()) {
+                    movingUp = true;
+                }
+            }
+
+            @Override
+            public void onRight() {
+                if (!isMoving()) {
+                    movingRight = true;
+                }
+            }
+
+            @Override
+            public void onLeft() {
+                if (!isMoving()) {
+                    movingLeft = true;
+                }
+            }
+
+            @Override
+            public void onDown() {
+                if (!isMoving()) {
+                    movingDown = true;
+                }
+            }
+        }));
     }
 
-    public void onTouch(Vector2 touch, float delta) {
+    @Override
+    public void onCollide() {
+        resetMoving();
+    }
 
-        float currX = getX();
-        float currY = getY();
-
-        float newXPos = currX;
-        float newYPos = currY;
-
+    public void resetMoving() {
         movingLeft = false;
         movingRight = false;
         movingUp = false;
         movingDown = false;
+        float tileSize = TileManager.getTileSize();
+        setPos((Math.round(getX() / tileSize) * tileSize), (Math.round(getY() / tileSize)) * tileSize);
+    }
 
-        if (touch.x < MainGame.WIDTH / 3) {
-            newXPos = currX - speed * delta;
-            movingLeft = true;
-        } else if (touch.x > MainGame.WIDTH - MainGame.WIDTH / 3) {
-            newXPos = currX + speed * delta;
-            movingRight = true;
+    private boolean isMoving() {
+        return movingDown || movingUp || movingRight || movingLeft;
+    }
+
+    public void update(float delta) {
+
+        float newXPos = getX();
+        float newYPos = getY();
+        float velocity = speed * delta;
+
+        if (movingLeft) {
+            newXPos = getX() - velocity;
+        } else if (movingRight) {
+            newXPos = getX() + velocity;
         }
 
-        if (touch.y < MainGame.HEIGHT / 3) {
-            newYPos = currY - speed * delta;
-            movingDown = true;
-        } else if (touch.y > MainGame.HEIGHT - MainGame.HEIGHT / 3) {
-            newYPos = currY + speed * delta;
-            movingUp = true;
+        if (movingDown) {
+            newYPos = getY() - velocity;
+        } else if (movingUp) {
+            newYPos = getY() + velocity;
         }
-
         setPos(newXPos, newYPos);
+        System.out.println("POS: " + newXPos + ", " + newYPos);
+
     }
 
     public float getBulletStartX() {
@@ -62,19 +103,4 @@ public class Player extends GameObject {
         return getY();
     }
 
-    public boolean isMovingLeft() {
-        return movingLeft;
-    }
-
-    public boolean isMovingRight() {
-        return movingRight;
-    }
-
-    public boolean isMovingUp() {
-        return movingUp;
-    }
-
-    public boolean isMovingDown() {
-        return movingDown;
-    }
 }

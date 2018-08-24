@@ -30,6 +30,10 @@ public abstract class GameObject {
         return bounds;
     }
 
+    public void onCollide() {
+
+    }
+
     public boolean checkTouch(Vector2 touch) {
         return getBounds().contains(touch);
     }
