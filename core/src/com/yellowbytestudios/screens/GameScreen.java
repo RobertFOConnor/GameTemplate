@@ -29,22 +29,33 @@ public class GameScreen extends Screen {
     }
 
     private void setupGUI() {
-        UIElements.add(new TextButton("Pause", marginX(6), HEIGHT - marginY(2), new OnTouchListener() {
+        TextButton pauseButton = new TextButton();
+        pauseButton.setName("Pause");
+        pauseButton.setPos(marginX(6), HEIGHT - marginY(2));
+        pauseButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 gameManager.togglePause();
             }
-        }));
+        });
 
-        UIElements.add(new TextButton("Close", WIDTH - marginX(6), HEIGHT - marginY(2), new OnTouchListener() {
+        TextButton closeButton = new TextButton();
+        closeButton.setName("Close");
+        closeButton.setPos(WIDTH - marginX(6), HEIGHT - marginY(2));
+        closeButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                goBack();
+                gameManager.togglePause();
             }
-        }));
+        });
 
-        scoreDisplay = new TextView(gameManager.getScore() + "", CENTER_X, CENTER_Y + marginY(24));
+        scoreDisplay = new TextView();
+        scoreDisplay.setName(String.valueOf(gameManager.getScore()));
+        scoreDisplay.setPos(CENTER_X, CENTER_Y + marginY(24));
         scoreDisplay.setFont(Fonts.getFont(Fonts.size.LARGE));
+
+        UIElements.add(pauseButton);
+        UIElements.add(closeButton);
         UIElements.add(scoreDisplay);
     }
 

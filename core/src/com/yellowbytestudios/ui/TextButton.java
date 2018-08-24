@@ -15,6 +15,19 @@ public class TextButton extends UIElement {
     private String name;
     private BitmapFont font = Fonts.getFont(Fonts.size.MEDIUM);
 
+    public TextButton() {
+        super(0, 0);
+        setName("Button");
+        setupBounds();
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public void onTouch(Vector2 touch) {
+
+            }
+        });
+        center();
+    }
+
     public TextButton(String name, float x, float y, OnTouchListener onTouchListener) {
         super(x, y);
         setName(name);
@@ -56,7 +69,7 @@ public class TextButton extends UIElement {
         this.name = name;
     }
 
-    private void setOnTouchListener(OnTouchListener onTouchListener) {
+    public void setOnTouchListener(OnTouchListener onTouchListener) {
         this.onTouchListener = onTouchListener;
     }
 

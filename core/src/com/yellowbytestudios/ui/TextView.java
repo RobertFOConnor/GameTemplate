@@ -14,6 +14,12 @@ public class TextView extends UIElement {
     private BitmapFont font = Fonts.getFont(Fonts.size.SMALL);
     private String name = "";
 
+    public TextView() {
+        super(0, 0);
+        setName("Text here");
+        setupBounds();
+    }
+
     public TextView(String name, float x, float y, int width) {
         super(x, y);
         setName(name);
