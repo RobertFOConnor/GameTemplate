@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.game.GameManager;
-import com.yellowbytestudios.game.tile.TileManager;
 import com.yellowbytestudios.media.Fonts;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;

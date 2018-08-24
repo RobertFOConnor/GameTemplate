@@ -27,6 +27,7 @@ public class TileManager {
 
     private ArrayList<Vector2[]> lines;
     private ShapeRenderer sr;
+    private int[] renderLayers = new int[]{0};
 
     public TileManager(OrthographicCamera camera) {
         this.camera = camera;
@@ -35,7 +36,7 @@ public class TileManager {
         setupMapWidthHeight();
         sr = new ShapeRenderer();
         TileWallMaker tc = new TileWallMaker();
-        lines = tc.createWalls((TiledMapTileLayer) tiledMap.getLayers().get(0));
+        lines = tc.createWalls(getLayer(0));
     }
 
     public void update(Player player) {
@@ -44,7 +45,7 @@ public class TileManager {
 
     public void render() {
         tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
+        tiledMapRenderer.render(renderLayers);
 
         sr.setProjectionMatrix(camera.combined);
         sr.begin(ShapeRenderer.ShapeType.Filled);
@@ -74,5 +75,9 @@ public class TileManager {
 
     public static float getTileSize() {
         return tileSize;
+    }
+
+    public TiledMapTileLayer getLayer(int index) {
+        return (TiledMapTileLayer) tiledMap.getLayers().get(index);
     }
 }

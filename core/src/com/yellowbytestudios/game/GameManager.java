@@ -3,13 +3,17 @@ package com.yellowbytestudios.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.yellowbytestudios.MainGame;
+import com.yellowbytestudios.game.tile.TileCoins;
 import com.yellowbytestudios.game.tile.TileManager;
+
+import java.util.ArrayList;
 
 public class GameManager {
 
     private OrthographicCamera camera;
     private TileManager tileManager;
     private Player player;
+    private ArrayList<Coin> coins;
     private boolean paused = false;
     private int score = 0;
     private boolean gameOver = false;
@@ -22,6 +26,8 @@ public class GameManager {
         tileManager = new TileManager(camera);
         player = new Player("Phil");
         player.setPos(960, 80);
+
+        coins = TileCoins.createCoins(tileManager.getLayer(1));
     }
 
     public void update(float delta) {
@@ -35,9 +41,13 @@ public class GameManager {
 
     public void render(SpriteBatch sb) {
         tileManager.render();
+
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         player.render(sb);
+        for (Coin coin : coins) {
+            coin.render(sb);
+        }
         sb.end();
     }
 
