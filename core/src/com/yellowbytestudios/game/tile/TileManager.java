@@ -80,4 +80,15 @@ public class TileManager {
     public TiledMapTileLayer getLayer(int index) {
         return (TiledMapTileLayer) tiledMap.getLayers().get(index);
     }
+
+    public void dispose() {
+        tiledMap.dispose();
+        lines.clear();
+        sr.dispose();
+        tiledMap = null;
+        tiledMapRenderer = null;
+        lines = null;
+        sr = null;
+        camera = null;
+    }
 }

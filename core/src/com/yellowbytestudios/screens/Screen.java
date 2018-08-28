@@ -34,7 +34,9 @@ public abstract class Screen {
         if (Gdx.input.justTouched()) {
             Vector2 touch = getTouchPos();
             for (UIElement uiElement : UIElements) {
-                uiElement.checkTouch(touch);
+                if (uiElement.checkTouch(touch)) {
+                    break;
+                }
             }
         }
     }
@@ -59,7 +61,12 @@ public abstract class Screen {
         camera.update();
     }
 
-    public abstract void dispose();
+    public void dispose() {
+        UIElements.clear();
+        UIElements = null;
+        camera = null;
+        viewport = null;
+    }
 
     public abstract void show();
 

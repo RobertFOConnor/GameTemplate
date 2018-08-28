@@ -17,13 +17,15 @@ public class ToggleButton extends TextButton {
         setName(isActive ? getActiveName() : getInactiveName());
     }
 
-    public void checkTouch(Vector2 touch) {
+    public boolean checkTouch(Vector2 touch) {
         if (getBounds().contains(touch)) {
             onTouchListener.onTouch(touch);
             isActive = !isActive;
             setName(isActive ? getActiveName() : getInactiveName());
             Sounds.play("sound/click.wav");
+            return true;
         }
+        return false;
     }
 
     public String getInactiveName() {

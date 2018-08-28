@@ -2,6 +2,7 @@ package com.yellowbytestudios.game.tile;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.yellowbytestudios.game.Coin;
+import com.yellowbytestudios.game.GameObjectArray;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,8 @@ public class TileCoins {
         return row * tileSize + tileSize / 2 - coinSize / 2;
     }
 
-    public static ArrayList<Coin> createCoins(TiledMapTileLayer layer) {
-        ArrayList<Coin> coins = new ArrayList<Coin>();
+    public static GameObjectArray createCoins(TiledMapTileLayer layer) {
+        GameObjectArray coins = new GameObjectArray();
 
 
         for (int row = 0; row < layer.getHeight(); row++) {

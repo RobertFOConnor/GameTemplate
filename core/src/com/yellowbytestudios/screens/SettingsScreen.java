@@ -21,18 +21,18 @@ public class SettingsScreen extends Screen {
     public void create() {
         super.create();
 
-        TextView tv = new TextView(headerText, CENTER_X, MainGame.HEIGHT-100, MainGame.WIDTH - 200);
+        TextView tv = new TextView(headerText, CENTER_X, MainGame.HEIGHT - 100, MainGame.WIDTH - 200);
         tv.center();
         UIElements.add(tv);
 
-        ToggleButton musicButton = new ToggleButton("Music: on", "Music: off", CENTER_X, CENTER_Y+100, new OnTouchListener() {
+        ToggleButton musicButton = new ToggleButton("Music: on", "Music: off", CENTER_X, CENTER_Y + 100, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 Sounds.toggleMusic();
             }
         }, Sounds.isMusicEnabled());
 
-        ToggleButton soundButton = new ToggleButton("Sounds: on", "Sounds: off", CENTER_X, CENTER_Y-100, new OnTouchListener() {
+        ToggleButton soundButton = new ToggleButton("Sounds: on", "Sounds: off", CENTER_X, CENTER_Y - 100, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
                 Sounds.toggleSound();
@@ -63,7 +63,7 @@ public class SettingsScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        super.dispose();
     }
 
     @Override

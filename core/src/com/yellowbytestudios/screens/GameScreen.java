@@ -40,6 +40,7 @@ public class GameScreen extends Screen {
                 gameManager.togglePause();
             }
         });
+        pauseButton.center();
 
         TextButton closeButton = new TextButton();
         closeButton.setName("Close");
@@ -47,14 +48,16 @@ public class GameScreen extends Screen {
         closeButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                gameManager.togglePause();
+                ScreenManager.setScreen(new TitleScreen());
             }
         });
+        closeButton.center();
 
         scoreDisplay = new TextView();
         scoreDisplay.setName(String.valueOf(gameManager.getScore()));
         scoreDisplay.setPos(CENTER_X, CENTER_Y + marginY(24));
         scoreDisplay.setFont(Fonts.getFont(Fonts.size.LARGE));
+        scoreDisplay.center();
 
         UIElements.add(pauseButton);
         UIElements.add(closeButton);
@@ -65,6 +68,7 @@ public class GameScreen extends Screen {
         String currScore = String.valueOf(gameManager.getScore());
         if (!currScore.equals(scoreDisplay.getName())) {
             scoreDisplay.setName(currScore);
+            scoreDisplay.center();
         }
     }
 
@@ -83,6 +87,7 @@ public class GameScreen extends Screen {
 
     @Override
     public void dispose() {
+        super.dispose();
         gameManager.dispose();
     }
 

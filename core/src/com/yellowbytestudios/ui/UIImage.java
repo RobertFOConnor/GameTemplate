@@ -17,7 +17,7 @@ public class UIImage extends UIElement {
     }
 
     @Override
-    public void checkTouch(Vector2 touch) {
-
+    public boolean checkTouch(Vector2 touch) {
+        return false;
     }
 }

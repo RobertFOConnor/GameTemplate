@@ -46,8 +46,8 @@ public class TextView extends UIElement {
     }
 
     @Override
-    public void checkTouch(Vector2 touch) {
-
+    public boolean checkTouch(Vector2 touch) {
+        return false;
     }
 
     public String getName() {
@@ -57,7 +57,6 @@ public class TextView extends UIElement {
     public void setName(String name) {
         this.name = name;
         setupBounds();
-        center();
     }
 
     public void center() {

@@ -24,7 +24,7 @@ public abstract class UIElement {
     }
 
     public abstract void render(SpriteBatch sb, ShapeRenderer sr);
-    public abstract void checkTouch(Vector2 touch);
+    public abstract boolean checkTouch(Vector2 touch);
 
     public float getX() {
         return sprite.getX();

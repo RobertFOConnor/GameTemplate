@@ -27,7 +27,6 @@ public class LabelButton extends UIElement {
         setHeight(height);
         this.radius = radius;
         setOnTouchListener(onTouchListener);
-        center();
         setupTextBounds();
         getSprite().setColor(Color.BLACK);
     }
@@ -56,11 +55,13 @@ public class LabelButton extends UIElement {
         return new Rectangle(getX(), getY() - height, width, height);
     }
 
-    public void checkTouch(Vector2 touch) {
+    public boolean checkTouch(Vector2 touch) {
         if (getBounds().contains(touch) && isVisible()) {
             onTouchListener.onTouch(touch);
             Sounds.play("sound/click.wav");
+            return true;
         }
+        return false;
     }
 
     public String getName() {
@@ -75,7 +76,7 @@ public class LabelButton extends UIElement {
         this.onTouchListener = onTouchListener;
     }
 
-    private void center() {
+    public void center() {
         setPos(getX() - width / 2, getY());
     }
 

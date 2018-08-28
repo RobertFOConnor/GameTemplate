@@ -21,7 +21,7 @@ import static com.yellowbytestudios.ui.Metrics.CENTER_Y;
 public class TitleScreen extends Screen {
 
     private LabelButton startButton;
-    TextButton optionsButton, exitButton;
+    private TextButton optionsButton, exitButton;
     private UIImage logoImage;
 
     @Override
@@ -36,6 +36,7 @@ public class TitleScreen extends Screen {
                 ScreenManager.setScreen(new GameScreen());
             }
         });
+        startButton.center();
 
         optionsButton = new TextButton("Options", CENTER_X, CENTER_Y - 400, new OnTouchListener() {
             @Override
@@ -43,6 +44,7 @@ public class TitleScreen extends Screen {
                 ScreenManager.setScreen(new SettingsScreen());
             }
         });
+        optionsButton.center();
 
         exitButton = new TextButton("Exit", CENTER_X, CENTER_Y - 600, new OnTouchListener() {
             @Override
@@ -50,6 +52,7 @@ public class TitleScreen extends Screen {
                 goBack();
             }
         });
+        exitButton.center();
 
         UIElements.add(logoImage);
         UIElements.add(startButton);
@@ -63,9 +66,9 @@ public class TitleScreen extends Screen {
     private void animateUI() {
         if (UIAnimator.ANIMATIONS_ENABLED) {
             UIAnimator.applyAnimation(logoImage, UIAnimator.BOTTOM);
-            UIAnimator.applyAnimation(startButton, UIAnimator.BOTTOM);
-            UIAnimator.applyAnimation(optionsButton, UIAnimator.BOTTOM);
-            UIAnimator.applyAnimation(exitButton, UIAnimator.BOTTOM);
+            UIAnimator.applyAnimation(startButton, UIAnimator.RIGHT);
+            UIAnimator.applyAnimation(optionsButton, UIAnimator.LEFT);
+            UIAnimator.applyAnimation(exitButton, UIAnimator.RIGHT);
         }
     }
 
@@ -81,7 +84,7 @@ public class TitleScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        super.dispose();
     }
 
     @Override
