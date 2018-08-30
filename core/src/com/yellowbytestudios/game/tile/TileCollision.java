@@ -2,6 +2,7 @@ package com.yellowbytestudios.game.tile;
 
 import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.game.GameObject;
+import com.yellowbytestudios.game.Player;
 
 import java.util.ArrayList;
 
@@ -9,30 +10,34 @@ import java.util.ArrayList;
 public class TileCollision {
 
     public static void checkCollision(GameObject gameObject, ArrayList<Vector2[]> lines) {
+        Player player = (Player) gameObject;
+
         for (Vector2[] line : lines) {
-            if (line[0].x > gameObject.getX() &&
-                    line[0].x < gameObject.getX2() &&
-                    line[0].y > gameObject.getY() &&
-                    line[1].y < gameObject.getY2()) {
-                if (gameObject.getX2() - gameObject.getWidth() / 2 > line[0].x) {
-                    gameObject.setPos(line[0].x, gameObject.getY());
-                    gameObject.onCollide();
-                } else {
-                    gameObject.setPos(line[0].x - gameObject.getWidth(), gameObject.getY());
-                    gameObject.onCollide();
+            if (gameObject.getY() > line[1].y - gameObject.getHeight() && gameObject.getY() < line[0].y) {
+                if (player.getOldX() < player.getX()) { //moving right
+                    if (player.getOldX() + player.getWidth() <= line[0].x && player.getX2() >= line[0].x) {
+                        player.setPos(line[0].x - player.getWidth(), player.getY());
+                        player.onCollide();
+                    }
+                } else if (player.getOldX() > player.getX()) {
+                    if (player.getOldX() >= line[0].x && player.getX() <= line[0].x) {
+                        player.setPos(line[0].x, player.getY());
+                        player.onCollide();
+                    }
                 }
             }
 
-            if (line[0].y > gameObject.getY() &&
-                    line[0].y < gameObject.getY2() &&
-                    line[1].x > gameObject.getX() &&
-                    line[0].x < gameObject.getX2()) {
-                if (gameObject.getY2() - gameObject.getHeight() / 2 > line[0].y) {
-                    gameObject.setPos(gameObject.getX(), line[0].y);
-                    gameObject.onCollide();
-                } else {
-                    gameObject.setPos(gameObject.getX(), line[0].y - gameObject.getHeight());
-                    gameObject.onCollide();
+            if (gameObject.getX2() > line[0].x && gameObject.getX() < line[1].x) {
+                if (player.getOldY() < player.getY()) { //moving up
+                    if (player.getY2() >= line[0].y && player.getOldY() + player.getHeight() <= line[0].y) {
+                        player.setPos(player.getX(), line[0].y - player.getHeight());
+                        player.onCollide();
+                    }
+                } else if (player.getOldY() > player.getY()) {
+                    if (player.getY() <= line[0].y && player.getOldY() >= line[0].y) {
+                        player.setPos(player.getX(), line[0].y);
+                        player.onCollide();
+                    }
                 }
             }
         }

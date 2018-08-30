@@ -7,8 +7,8 @@ import com.yellowbytestudios.MainGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1080/5;
-		config.height = 1920/5;
+		config.width = 1080/3;
+		config.height = 1920/3;
 		new LwjglApplication(new MainGame(), config);
 	}
 }

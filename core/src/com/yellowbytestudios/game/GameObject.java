@@ -21,8 +21,7 @@ public abstract class GameObject {
     }
 
     public void render(SpriteBatch sb) {
-        sb.draw(sprite, sprite.getX(), sprite.getY(), width, height);
-
+        sb.draw(sprite, sprite.getX(), sprite.getY(), width / 2, height / 2, width, height, 1, 1, sprite.getRotation());
     }
 
     public Rectangle getBounds() {
@@ -59,7 +58,7 @@ public abstract class GameObject {
     }
 
     public float getX2() {
-        return sprite.getX()+width;
+        return sprite.getX() + width;
     }
 
     public float getY() {
@@ -92,5 +91,9 @@ public abstract class GameObject {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 }

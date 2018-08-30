@@ -30,7 +30,6 @@ public class GameManager {
 
         tileManager = new TileManager(camera);
         player = new Player("Phil");
-        player.setPos(960, 80);
 
         coins = TileCoins.createCoins(tileManager.getLayer(1));
         exit = TileExit.createExit(tileManager.getLayer(2));
