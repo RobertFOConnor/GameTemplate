@@ -1,13 +1,9 @@
 package com.yellowbytestudios.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.game.input.AndroidListener;
 import com.yellowbytestudios.game.input.KeyboardListener;
 import com.yellowbytestudios.game.input.PlayerController;
-import com.yellowbytestudios.game.input.SwipeGesture;
-import com.yellowbytestudios.game.tile.TileCollision;
 import com.yellowbytestudios.game.tile.TileManager;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.utils.DeviceTypes;
@@ -20,8 +16,8 @@ public class Player extends GameObject {
     private boolean movingUp = false;
     private boolean movingDown = false;
 
-    private float oldX = 0;
-    private float oldY = 0;
+    private float oldX;
+    private float oldY;
 
     private PlayerController playerController;
 
@@ -32,8 +28,8 @@ public class Player extends GameObject {
         this.setPos(1040, 160);
         oldX = 0;
         oldY = 0;
-        this.setWidth(80);
-        this.setHeight(80);
+        this.setWidth(TileManager.getTileSize());
+        this.setHeight(TileManager.getTileSize());
 
         if (MainGame.DEVICE.equals(DeviceTypes.ANDROID)) {
             playerController = new AndroidListener();
@@ -111,27 +107,11 @@ public class Player extends GameObject {
         setPos(newXPos, newYPos);
     }
 
-    public float getBulletStartX() {
-        return getX() + (getWidth() / 2 - 10);
-    }
-
-    public float getBulletStartY() {
-        return getY();
-    }
-
     public float getOldX() {
         return oldX;
     }
 
     public float getOldY() {
         return oldY;
-    }
-
-    public float[] getOldCenter() {
-        return new float[]{oldX, oldY};
-    }
-
-    public float[] getCenter() {
-        return new float[]{getX(), getY()};
     }
 }

@@ -6,7 +6,6 @@ import com.yellowbytestudios.game.Player;
 
 import java.util.ArrayList;
 
-
 public class TileCollision {
 
     public static void checkCollision(GameObject gameObject, ArrayList<Vector2[]> lines) {

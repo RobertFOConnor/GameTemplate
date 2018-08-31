@@ -11,8 +11,6 @@ public class TileExit {
 
         for (int row = 0; row < layer.getHeight(); row++) {
             for (int col = 0; col < layer.getWidth(); col++) {
-
-                //Get cell at (row, col) position.
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
 
                 if (cell != null) {

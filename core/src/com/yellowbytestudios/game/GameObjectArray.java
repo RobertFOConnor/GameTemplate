@@ -3,8 +3,6 @@ package com.yellowbytestudios.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameObjectArray {
 

@@ -83,7 +83,11 @@ public class GameManager {
     }
 
     public void dispose() {
+        camera = null;
         tileManager.dispose();
+        tileManager = null;
+        coins = null;
+        exit = null;
         player = null;
         gameOver = true;
     }

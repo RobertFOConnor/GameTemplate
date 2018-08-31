@@ -45,6 +45,8 @@ public class LevelScrollView extends UIElement {
         camera.position.set(getX() + getWidth() / 2 + ((currLevel - 1) / 2) * horizontalPadding, getY() + getHeight() / 2, 0);
     }
 
+    float scrollAmount;
+
     public void update() {
         if (Gdx.input.justTouched() && !scrollStarted) {
             Vector2 touch = getTouchPos();
@@ -58,7 +60,7 @@ public class LevelScrollView extends UIElement {
 
         if (Gdx.input.isTouched() && scrollStarted) {
             Vector2 currTouch = getTouchPos();
-            float scrollAmount = startTouch.x - currTouch.x;
+            scrollAmount = startTouch.x - currTouch.x;
             float newXPos = camX + scrollAmount;
             if (newXPos >= 0 && newXPos <= contentWidth) {
                 camera.position.add(scrollAmount, 0, 0);

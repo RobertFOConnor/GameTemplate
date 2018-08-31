@@ -1,6 +1,5 @@
 package com.yellowbytestudios.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -24,7 +23,7 @@ public class SettingsScreen extends Screen {
     public void create() {
         super.create();
 
-        sv = new ScrollView(0, 300, MainGame.WIDTH, MainGame.HEIGHT/2, ScrollView.HORIZONTAL);
+        sv = new ScrollView(0, 300, MainGame.WIDTH, MainGame.HEIGHT / 2, ScrollView.HORIZONTAL);
 
         TextView tv = new TextView(headerText, CENTER_X, MainGame.HEIGHT - 100, MainGame.WIDTH - 200);
         tv.center();

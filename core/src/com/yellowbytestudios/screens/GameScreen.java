@@ -18,7 +18,6 @@ import static com.yellowbytestudios.ui.Metrics.marginY;
 
 public class GameScreen extends Screen {
 
-
     private GameManager gameManager;
     private TextView scoreDisplay;
 
@@ -33,6 +32,7 @@ public class GameScreen extends Screen {
     private void setupGUI() {
         TextButton pauseButton = new TextButton();
         pauseButton.setName("Pause");
+        pauseButton.setupBounds();
         pauseButton.setPos(marginX(6), HEIGHT - marginY(2));
         pauseButton.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -44,6 +44,7 @@ public class GameScreen extends Screen {
 
         TextButton closeButton = new TextButton();
         closeButton.setName("Close");
+        closeButton.setupBounds();
         closeButton.setPos(WIDTH - marginX(6), HEIGHT - marginY(2));
         closeButton.setOnTouchListener(new OnTouchListener() {
             @Override
