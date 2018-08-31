@@ -3,10 +3,14 @@ package com.yellowbytestudios.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.yellowbytestudios.MainGame;
+import com.yellowbytestudios.game.input.AndroidListener;
+import com.yellowbytestudios.game.input.KeyboardListener;
+import com.yellowbytestudios.game.input.PlayerController;
 import com.yellowbytestudios.game.input.SwipeGesture;
 import com.yellowbytestudios.game.tile.TileCollision;
 import com.yellowbytestudios.game.tile.TileManager;
 import com.yellowbytestudios.media.Assets;
+import com.yellowbytestudios.utils.DeviceTypes;
 
 public class Player extends GameObject {
 
@@ -19,50 +23,47 @@ public class Player extends GameObject {
     private float oldX = 0;
     private float oldY = 0;
 
+    private PlayerController playerController;
+
     public Player(String name) {
-        super(Assets.manager.get("ship.png", Texture.class));
+        super(Assets.getTexture("player.png"));
         this.setName(name);
 
-        this.setPos(960, 160);
+        this.setPos(1040, 160);
         oldX = 0;
         oldY = 0;
         this.setWidth(80);
         this.setHeight(80);
 
-        Gdx.input.setInputProcessor(new SwipeGesture(new SwipeGesture.DirectionListener() {
+        if (MainGame.DEVICE.equals(DeviceTypes.ANDROID)) {
+            playerController = new AndroidListener();
+        } else {
+            playerController = new KeyboardListener();
+        }
+    }
 
-            @Override
-            public void onUp() {
-                if (!isMoving()) {
-                    movingUp = true;
-                    getSprite().setRotation(0);
-                }
+    private void updateController() {
+        if (playerController.moveLeft()) {
+            if (!isMoving()) {
+                movingLeft = true;
+                getSprite().setRotation(-90);
             }
-
-            @Override
-            public void onRight() {
-                if (!isMoving()) {
-                    movingRight = true;
-                    getSprite().setRotation(-90);
-                }
+        } else if (playerController.moveRight()) {
+            if (!isMoving()) {
+                movingRight = true;
+                getSprite().setRotation(90);
             }
-
-            @Override
-            public void onLeft() {
-                if (!isMoving()) {
-                    movingLeft = true;
-                    getSprite().setRotation(90);
-                }
+        } else if (playerController.moveUp()) {
+            if (!isMoving()) {
+                movingUp = true;
+                getSprite().setRotation(180);
             }
-
-            @Override
-            public void onDown() {
-                if (!isMoving()) {
-                    movingDown = true;
-                    getSprite().setRotation(180);
-                }
+        } else if (playerController.moveDown()) {
+            if (!isMoving()) {
+                movingDown = true;
+                getSprite().setRotation(0);
             }
-        }));
+        }
     }
 
     @Override
@@ -86,6 +87,8 @@ public class Player extends GameObject {
     }
 
     public void update(float delta) {
+
+        updateController();
 
         oldX = getX();
         oldY = getY();

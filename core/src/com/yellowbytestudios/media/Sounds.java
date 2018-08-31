@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
 
-    private static boolean soundFXEnabled = true;
+    private static boolean soundFXEnabled = false;
     private static boolean musicEnabled = false;
     private static Music GAME_MUSIC;
 

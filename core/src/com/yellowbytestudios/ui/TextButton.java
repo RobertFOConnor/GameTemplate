@@ -34,7 +34,7 @@ public class TextButton extends UIElement {
         setOnTouchListener(onTouchListener);
     }
 
-    private void setupBounds() {
+    public void setupBounds() {
         GlyphLayout layout = new GlyphLayout();
         layout.setText(font, name);
         setWidth(layout.width);

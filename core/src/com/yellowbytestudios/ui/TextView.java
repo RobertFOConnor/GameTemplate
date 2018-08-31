@@ -39,10 +39,15 @@ public class TextView extends UIElement {
         setHeight(layout.height);
     }
 
-    public void render(SpriteBatch sb, ShapeRenderer sr) {
+    public void render(SpriteBatch sb) {
         if (isVisible()) {
             font.draw(sb, name, getX(), getY(), width, Align.center, true);
         }
+    }
+
+    @Override
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
+        render(sb);
     }
 
     @Override

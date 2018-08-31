@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Sounds;
+import com.yellowbytestudios.screens.LevelSelectScreen.LevelSelectScreen;
 import com.yellowbytestudios.ui.LabelButton;
 import com.yellowbytestudios.ui.OnTouchListener;
 import com.yellowbytestudios.ui.TextButton;
@@ -33,7 +34,7 @@ public class TitleScreen extends Screen {
         startButton = new LabelButton("Play", CENTER_X, CENTER_Y - 100, 500, 150, 20, new OnTouchListener() {
             @Override
             public void onTouch(Vector2 touch) {
-                ScreenManager.setScreen(new GameScreen());
+                ScreenManager.setScreen(new LevelSelectScreen());
             }
         });
         startButton.center();

@@ -2,24 +2,31 @@ package com.yellowbytestudios;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Fonts;
+import com.yellowbytestudios.screens.LevelSelectScreen.LevelSelectScreen;
 import com.yellowbytestudios.screens.ScreenManager;
 import com.yellowbytestudios.screens.TitleScreen;
 import com.yellowbytestudios.ui.UIAnimator;
 
 public class MainGame extends ApplicationAdapter {
 
+    public static String DEVICE;
     public static int WIDTH = 1080;
     public static int HEIGHT = 1920;
     private SpriteBatch sb;
     private ShapeRenderer sr;
     private static UIAnimator uiAnimator;
     private boolean loaded = false;
+    private FPSLogger fpsLogger;
+
+    public MainGame(String device) {
+        DEVICE = device;
+    }
 
     @Override
     public void create() {
@@ -28,6 +35,7 @@ public class MainGame extends ApplicationAdapter {
         sr = new ShapeRenderer();
         sb = new SpriteBatch();
         uiAnimator = new UIAnimator();
+        fpsLogger = new FPSLogger();
     }
 
     @Override
@@ -54,6 +62,7 @@ public class MainGame extends ApplicationAdapter {
             ScreenManager.getCurrentScreen().update(Gdx.graphics.getDeltaTime());
             ScreenManager.getCurrentScreen().render(sb, sr);
         }
+        //fpsLogger.log();
     }
 
     @Override

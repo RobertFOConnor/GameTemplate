@@ -24,6 +24,7 @@ public abstract class UIElement {
     }
 
     public abstract void render(SpriteBatch sb, ShapeRenderer sr);
+
     public abstract boolean checkTouch(Vector2 touch);
 
     public float getX() {
@@ -65,4 +66,13 @@ public abstract class UIElement {
     public void setHeight(float height) {
         this.height = height;
     }
+
+    public float getCenterX() {
+        return getX() + getWidth() / 2;
+    }
+
+    public float getCenterY() {
+        return getY() + getHeight() / 2;
+    }
+
 }

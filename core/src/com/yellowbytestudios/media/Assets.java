@@ -19,6 +19,7 @@ public class Assets {
 
         //Images
         assetMap.put("ship.png", Texture.class);
+        assetMap.put("player.png", Texture.class);
         assetMap.put("enemy.png", Texture.class);
 
         //Sound
@@ -35,6 +36,10 @@ public class Assets {
             manager.load((String) pair.getKey(), (Class) pair.getValue());
             it.remove();
         }
+    }
+
+    public static Texture getTexture(String name) {
+        return manager.get(name, Texture.class);
     }
 
     public static void dispose() {

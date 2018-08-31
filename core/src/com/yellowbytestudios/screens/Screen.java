@@ -16,7 +16,7 @@ public abstract class Screen {
 
     OrthographicCamera camera;
     private FitViewport viewport;
-    ArrayList<UIElement> UIElements;
+    protected ArrayList<UIElement> UIElements;
 
     public void create() {
         camera = new OrthographicCamera();

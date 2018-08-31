@@ -17,11 +17,13 @@ import java.util.ArrayList;
 
 public class TileManager {
 
+    private static final String MAP_FILE_NAME = "tilemap.tmx";
+    private static float tileSize = 80;
+
     private OrthographicCamera camera;
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
 
-    private static float tileSize = 80;
     private float mapWidth;
     private float mapHeight;
 
@@ -31,7 +33,7 @@ public class TileManager {
 
     public TileManager(OrthographicCamera camera) {
         this.camera = camera;
-        tiledMap = new TmxMapLoader().load("tilemap.tmx");
+        tiledMap = new TmxMapLoader().load(MAP_FILE_NAME);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         setupMapWidthHeight();
         sr = new ShapeRenderer();
