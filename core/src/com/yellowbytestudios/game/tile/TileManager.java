@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class TileManager {
 
+    private static final boolean DEBUG = false;
     private static final String MAP_FILE_NAME = "tilemap.tmx";
     private static float tileSize = 80;
 
@@ -52,10 +53,16 @@ public class TileManager {
         sr.setProjectionMatrix(camera.combined);
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.WHITE);
-        for (Vector2[] v : lines) {
-            //sr.rectLine(v[0], v[1], 3); //DEBUG
-        }
+        renderWallLines();
         sr.end();
+    }
+
+    private void renderWallLines() {
+        if (DEBUG) {
+            for (Vector2[] v : lines) {
+                sr.rectLine(v[0], v[1], 3); //DEBUG
+            }
+        }
     }
 
     private void setupMapWidthHeight() {

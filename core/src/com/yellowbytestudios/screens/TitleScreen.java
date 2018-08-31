@@ -2,11 +2,9 @@ package com.yellowbytestudios.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.yellowbytestudios.MainGame;
 import com.yellowbytestudios.media.Assets;
 import com.yellowbytestudios.media.Sounds;
 import com.yellowbytestudios.screens.LevelSelectScreen.LevelSelectScreen;
